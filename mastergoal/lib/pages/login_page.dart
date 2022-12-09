@@ -11,22 +11,43 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    //Objeto para guardar el nombre del jugador [mauro]
+    TextEditingController NombreTextField = TextEditingController(text: "");
+    //var textoController = '';
+
     return Scaffold(
       appBar: AppBar(
         //titulo de la pagina [mauro]
         title: const Text("Login Page"),
       ),
-      body: Center(
-        //se crea el primer boton del login [mauro]
-        child: ElevatedButton(
+      body: Column(
+        children: [
+          Container(
+              padding: const EdgeInsets.all(20),
+              child: TextField(
+                controller: NombreTextField,
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    fillColor: Color.fromARGB(255, 236, 235, 235),
+                    filled: true,
+                    hintText: "Ingrese su nombre"),
+              )),
+          ElevatedButton(
             onPressed: () {
+              //var argument = textoController;
+              Navigator.pushNamed(
+                context,
+                '/home',
+                arguments: {'NombreLogin': NombreTextField.text},
+              );
+              //print(textoController.text);
               //Navigator.pushNamed(context, "/home");
-
               //se le agrega la ruta a donde se va a dirigir al darle click [mauro]
-              Navigator.pushReplacementNamed(context, "/home");
+              //Navigator.pushReplacementNamed(context, "/home");
             },
-            //se agrega el texto del boton [mauro]
-            child: const Text("Ingresar")),
+            child: const Text("Ingresar"),
+          )
+        ],
       ),
     );
   }
