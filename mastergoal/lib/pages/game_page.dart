@@ -9,6 +9,7 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  int posicionBalon = 71;
   int indiceFichaActualSeleccionada = 1;
   String fichaActualSeleccionada = '';
   bool estaFichaEstaMarcada = false;
@@ -91,200 +92,206 @@ class _GamePageState extends State<GamePage> {
 
   //Posiciones iniciles de las fichas y posiciones en blanco y prohibidas
   var fichas = [
-    //[Posicion,Ficha,Seleccionado]
-    //Posiciones en blanco
-    [11, "x", "noseleccionado"],
-    [12, "x", "noseleccionado"],
-    [13, "x", "noseleccionado"],
-    [14, "x", "noseleccionado"],
-    [15, "x", "noseleccionado"],
-    [16, "x", "noseleccionado"],
-    [17, "x", "noseleccionado"],
-    [18, "x", "noseleccionado"],
-    [19, "x", "noseleccionado"],
-    [20, "x", "noseleccionado"],
-    [21, "x", "noseleccionado"],
-    [22, "x", "noseleccionado"],
-    [23, "x", "noseleccionado"],
-    [24, "x", "noseleccionado"],
-    [25, "x", "noseleccionado"],
-    [26, "x", "noseleccionado"],
-
-    //Jugador 2
-    [27, "jugador2", "noseleccionado"],
-
-    [28, "x", "noseleccionado"],
-    [29, "x", "noseleccionado"],
-    [30, "x", "noseleccionado"],
-    [31, "x", "noseleccionado"],
-    [32, "x", "noseleccionado"],
-    [33, "x", "noseleccionado"],
-    [34, "x", "noseleccionado"],
-    [35, "x", "noseleccionado"],
-    [36, "x", "noseleccionado"],
-    [37, "x", "noseleccionado"],
-    [38, "x", "noseleccionado"],
-    [39, "x", "noseleccionado"],
-    [40, "x", "noseleccionado"],
-    [41, "x", "noseleccionado"],
-    [42, "x", "noseleccionado"],
-    [43, "x", "noseleccionado"],
-    [44, "x", "noseleccionado"],
-    [45, "x", "noseleccionado"],
-    [46, "x", "noseleccionado"],
-    [47, "x", "noseleccionado"],
-    [48, "x", "noseleccionado"],
-
-    //Jugador 2
-    [49, "jugador2", "noseleccionado"],
-
-    [50, "x", "noseleccionado"],
-    [51, "x", "noseleccionado"],
-    [52, "x", "noseleccionado"],
-    [53, "x", "noseleccionado"],
-    [54, "x", "noseleccionado"],
-    [55, "x", "noseleccionado"],
-    [56, "x", "noseleccionado"],
-    [57, "x", "noseleccionado"],
-    [58, "x", "noseleccionado"],
-    [59, "x", "noseleccionado"],
-    [60, "x", "noseleccionado"],
-    [61, "x", "noseleccionado"],
-    [62, "x", "noseleccionado"],
-    [63, "x", "noseleccionado"],
-    [64, "x", "noseleccionado"],
-    [65, "x", "noseleccionado"],
-    [66, "x", "noseleccionado"],
-    [67, "x", "noseleccionado"],
-    [68, "x", "noseleccionado"],
-    [69, "x", "noseleccionado"],
-    [70, "x", "noseleccionado"],
-    [71, "x", "noseleccionado"],
-    [72, "x", "noseleccionado"],
-    [73, "x", "noseleccionado"],
-    [74, "x", "noseleccionado"],
-    [75, "x", "noseleccionado"],
-    [76, "x", "noseleccionado"],
-    [77, "x", "noseleccionado"],
-    [78, "x", "noseleccionado"],
-    [79, "x", "noseleccionado"],
-    [80, "x", "noseleccionado"],
-    [81, "x", "noseleccionado"],
-
-    //El balon
-    [82, "balon", "noseleccionado"],
-
-    [83, "x", "noseleccionado"],
-    [84, "x", "noseleccionado"],
-    [85, "x", "noseleccionado"],
-    [86, "x", "noseleccionado"],
-    [87, "x", "noseleccionado"],
-    [88, "x", "noseleccionado"],
-    [89, "x", "noseleccionado"],
-    [90, "x", "noseleccionado"],
-    [91, "x", "noseleccionado"],
-    [92, "x", "noseleccionado"],
-    [93, "x", "noseleccionado"],
-    [94, "x", "noseleccionado"],
-    [95, "x", "noseleccionado"],
-    [96, "x", "noseleccionado"],
-    [97, "x", "noseleccionado"],
-    [98, "x", "noseleccionado"],
-    [99, "x", "noseleccionado"],
-    [100, "x", "noseleccionado"],
-    [101, "x", "noseleccionado"],
-    [102, "x", "noseleccionado"],
-    [103, "x", "noseleccionado"],
-    [104, "x", "noseleccionado"],
-    [105, "x", "noseleccionado"],
-    [106, "x", "noseleccionado"],
-    [107, "x", "noseleccionado"],
-    [108, "x", "noseleccionado"],
-    [109, "x", "noseleccionado"],
-    [110, "x", "noseleccionado"],
-    [111, "x", "noseleccionado"],
-    [112, "x", "noseleccionado"],
-    [113, "x", "noseleccionado"],
-    [114, "x", "noseleccionado"],
-
-    //Jugador 1
-    [115, "jugador1", "noseleccionado"],
-
-    [116, "x", "noseleccionado"],
-    [117, "x", "noseleccionado"],
-    [118, "x", "noseleccionado"],
-    [119, "x", "noseleccionado"],
-    [120, "x", "noseleccionado"],
-    [121, "x", "noseleccionado"],
-    [122, "x", "noseleccionado"],
-    [123, "x", "noseleccionado"],
-    [124, "x", "noseleccionado"],
-    [125, "x", "noseleccionado"],
-    [126, "x", "noseleccionado"],
-    [127, "x", "noseleccionado"],
-    [128, "x", "noseleccionado"],
-    [129, "x", "noseleccionado"],
-    [130, "x", "noseleccionado"],
-    [131, "x", "noseleccionado"],
-    [132, "x", "noseleccionado"],
-    [133, "x", "noseleccionado"],
-    [134, "x", "noseleccionado"],
-    [135, "x", "noseleccionado"],
-    [136, "x", "noseleccionado"],
-
-    //Jugador 1
-    [137, "jugador1", "noseleccionado"],
-
-    [138, "x", "noseleccionado"],
-    [139, "x", "noseleccionado"],
-    [140, "x", "noseleccionado"],
-    [141, "x", "noseleccionado"],
-    [142, "x", "noseleccionado"],
-    [143, "x", "noseleccionado"],
-    [144, "x", "noseleccionado"],
-    [145, "x", "noseleccionado"],
-    [146, "x", "noseleccionado"],
-    [147, "x", "noseleccionado"],
-    [148, "x", "noseleccionado"],
-    [149, "x", "noseleccionado"],
-    [150, "x", "noseleccionado"],
-    [151, "x", "noseleccionado"],
-    [152, "x", "noseleccionado"],
-    [153, "x", "noseleccionado"]
+    //[Ficha,Seleccionado, AreaPelota]
+    //Posiciones en blanco(x)
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["jugador2", "noseleccionado", ''], //Jugador 2(defensa) posicion 16
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["jugador2", "noseleccionado", ''], //Jugador 2(delantero) posicion 38
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", 'ab'],
+    ["x", "noseleccionado", 'ab'],
+    ["x", "noseleccionado", 'ab'],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", 'ab'],
+    ["balon", "noseleccionado", ''], //Pelota posicion 71
+    ["x", "noseleccionado", 'ab'],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", 'ab'],
+    ["x", "noseleccionado", 'ab'],
+    ["x", "noseleccionado", 'ab'],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["jugador1", "noseleccionado", ''], //Jugador 1(delantero) posicion 104
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["jugador1", "noseleccionado", ''], //Jugador 1(defensa) posicion 126
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", ''],
+    ["x", "noseleccionado", '']
   ];
 
   //Metodo que reconoce que estamos queriendo hacer cuando tocamos una casilla
   void casillaSeleccionada(int indice) {
     //print("Se selecciono al ${fichas[index - 11][1].toString()}");
+
     //Si la casilla seleccionada es una casilla disponible para moverse
-    if (fichas[indice][1].toString() == "d") {
-      fichas[indice][1] = fichaActualSeleccionada;
-      fichas[indiceFichaActualSeleccionada][1] = 'x';
+    if (fichas[indice][0].toString() == "d") {
+      fichas[indice][0] = fichaActualSeleccionada;
+      fichas[indiceFichaActualSeleccionada][0] = 'x';
+      desmarcarTodo();
+
+      //Verifica si la ficha del jugador se encuentra en el area de la pelota
+      if ((fichas[indice][0] == 'jugador1' ||
+              fichas[indice][0] == 'jugador2') &&
+          fichas[indice][2] == 'ab') {
+        movimientoPatearBalon(indice);
+      }
+    }
+
+    //Si la casilla seleccionada es una casilla disponible para que el balon se mueva, hacemos el
+    //movimiento y actualizamos la posicion del balon
+    else if (fichas[indice][0] == 'mb') {
+      fichas[indice][0] = 'balon';
+      fichas[posicionBalon][0] = 'x';
+      posicionBalon = indice;
+      areaDelBalon();
       desmarcarTodo();
     }
 
     //Si la casilla seleccionada contiene cualquiera de las fichas
-    else if (fichas[indice][1].toString() != "x" &&
-        fichas[indice][2].toString() == 'noseleccionado') {
+    else if (fichas[indice][0].toString() != "x" &&
+        fichas[indice][1].toString() == 'noseleccionado') {
       desmarcarTodo();
       setState(() {
         indiceFichaActualSeleccionada = indice;
-        fichaActualSeleccionada = fichas[indice][1].toString();
-        fichas[indice][2] = 'seleccionado';
+        fichaActualSeleccionada = fichas[indice][0].toString();
+        fichas[indice][1] = 'seleccionado';
       });
-      if (fichas[indice][1].toString() == 'balon') {
+      if (fichas[indice][0].toString() == 'balon') {
       } else {
         jugadorMarcado(indice);
       }
     }
   }
 
+  //Metodo que se encarga de desmarcar las casillas con posibles movimientos de los jugadores y del
+  //balon
   void desmarcarTodo() {
     setState(() {
+      //Desmarca las casillas de los posibles movimientos, ya sea de los jugadores como del balon
       for (int i = 0; i < fichas.length; i++) {
-        fichas[i][2] = 'noseleccionado';
-        if (fichas[i][1] == 'd') {
-          fichas[i][1] = 'x';
+        fichas[i][1] = 'noseleccionado';
+        if (fichas[i][0] == 'd' || fichas[i][0] == 'mb') {
+          fichas[i][0] = 'x';
         }
       }
     });
@@ -292,101 +299,209 @@ class _GamePageState extends State<GamePage> {
 
   void jugadorMarcado(int indice) {
     //Mostrar posibles movimientos para Jugador 1
-    //setState(() {
     //Movimiento hacia arriba
     if (indice - 11 >= 0 &&
         indice - 11 < 143 &&
-        fichas[indice - 11][1] == 'x') {
-      fichas[indice - 11][1] = 'd';
+        fichas[indice - 11][0] == 'x') {
+      fichas[indice - 11][0] = 'd';
     }
     if (indice - (11 * 2) >= 0 &&
         indice - (11 * 2) < 143 &&
-        fichas[indice - (11 * 2)][1] == 'x') {
-      fichas[indice - (11 * 2)][1] = 'd';
+        fichas[indice - (11 * 2)][0] == 'x') {
+      fichas[indice - (11 * 2)][0] = 'd';
     }
 
     //Movimiento diagonal arriba-derecha
     if (indice - 10 >= 0 &&
         indice - 10 < 143 &&
-        fichas[indice - 10][1] == 'x') {
-      fichas[indice - 10][1] = 'd';
+        fichas[indice - 10][0] == 'x') {
+      fichas[indice - 10][0] = 'd';
     }
     if (indice - (10 * 2) >= 0 &&
         indice - (10 * 2) < 143 &&
-        fichas[indice - (10 * 2)][1] == 'x') {
-      fichas[indice - (10 * 2)][1] = 'd';
+        fichas[indice - (10 * 2)][0] == 'x') {
+      fichas[indice - (10 * 2)][0] = 'd';
     }
 
     //Movimiento hacia la derecha
-    if (indice + 1 >= 0 && indice + 1 < 143 && fichas[indice + 1][1] == 'x') {
-      fichas[indice + 1][1] = 'd';
+    if (indice + 1 >= 0 && indice + 1 < 143 && fichas[indice + 1][0] == 'x') {
+      fichas[indice + 1][0] = 'd';
     }
     if (indice + (1 * 2) >= 0 &&
         indice + (1 * 2) < 143 &&
-        fichas[indice + (1 * 2)][1] == 'x') {
-      fichas[indice + (1 * 2)][1] = 'd';
+        fichas[indice + (1 * 2)][0] == 'x') {
+      fichas[indice + (1 * 2)][0] = 'd';
     }
 
     //Movimiento diagonal abajo-derecha
     if (indice + 12 >= 0 &&
         indice + 12 < 143 &&
-        fichas[indice + 12][1] == 'x') {
-      fichas[indice + 12][1] = 'd';
+        fichas[indice + 12][0] == 'x') {
+      fichas[indice + 12][0] = 'd';
     }
     if (indice + (12 * 2) >= 0 &&
         indice + (12 * 2) < 143 &&
-        fichas[indice + (12 * 2)][1] == 'x') {
-      fichas[indice + (12 * 2)][1] = 'd';
+        fichas[indice + (12 * 2)][0] == 'x') {
+      fichas[indice + (12 * 2)][0] = 'd';
     }
 
     //Movimiento hacia abajo
     if (indice + 11 >= 0 &&
         indice + 11 < 143 &&
-        fichas[indice + 11][1] == 'x') {
-      fichas[indice + 11][1] = 'd';
+        fichas[indice + 11][0] == 'x') {
+      fichas[indice + 11][0] = 'd';
     }
     if (indice + (11 * 2) >= 0 &&
         indice + (11 * 2) < 143 &&
-        fichas[indice + (11 * 2)][1] == 'x') {
-      fichas[indice + (11 * 2)][1] = 'd';
+        fichas[indice + (11 * 2)][0] == 'x') {
+      fichas[indice + (11 * 2)][0] = 'd';
     }
 
     //Movimiento diagonal abajo-izquierda
     if (indice + 10 >= 0 &&
         indice + 10 < 143 &&
-        fichas[indice + 10][1] == 'x') {
-      fichas[indice + 10][1] = 'd';
+        fichas[indice + 10][0] == 'x') {
+      fichas[indice + 10][0] = 'd';
     }
     if (indice + (10 * 2) >= 0 &&
         indice + (10 * 2) < 143 &&
-        fichas[indice + (10 * 2)][1] == 'x') {
-      fichas[indice + (10 * 2)][1] = 'd';
+        fichas[indice + (10 * 2)][0] == 'x') {
+      fichas[indice + (10 * 2)][0] = 'd';
     }
 
     //Movimiento hacia la izquierda
-    if (indice - 1 >= 0 && indice - 1 < 143 && fichas[indice - 1][1] == 'x') {
-      fichas[indice - 1][1] = 'd';
+    if (indice - 1 >= 0 && indice - 1 < 143 && fichas[indice - 1][0] == 'x') {
+      fichas[indice - 1][0] = 'd';
     }
     if (indice - (1 * 2) >= 0 &&
         indice - (1 * 2) < 143 &&
-        fichas[indice - (1 * 2)][1] == 'x') {
-      fichas[indice - (1 * 2)][1] = 'd';
+        fichas[indice - (1 * 2)][0] == 'x') {
+      fichas[indice - (1 * 2)][0] = 'd';
     }
 
     //Movimiento diagonal arriba-izquierda
     if (indice - 12 >= 0 &&
         indice - 12 < 143 &&
-        fichas[indice - 12][1] == 'x') {
-      fichas[indice - 12][1] = 'd';
+        fichas[indice - 12][0] == 'x') {
+      fichas[indice - 12][0] = 'd';
     }
     if (indice - (12 * 2) >= 0 &&
         indice - (12 * 2) < 143 &&
-        fichas[indice - (12 * 2)][1] == 'x') {
-      fichas[indice - (12 * 2)][1] = 'd';
+        fichas[indice - (12 * 2)][0] == 'x') {
+      fichas[indice - (12 * 2)][0] = 'd';
     }
-    //});
-    //Mostrar posibles movimientos para Jugador 2
-    //else if (fichas[indice - 11][1].toString() == 'jugador2') {}
+  }
+
+  void movimientoPatearBalon(int indice) {
+    for (int i = 1; i < 5; i++) {
+      //Movimiento hacia Arriba
+      if (posicionBalon - (11 * i) >= 0 &&
+          posicionBalon - (11 * i) < 143 &&
+          fichas[posicionBalon - (11 * i)][0] == 'x') {
+        fichas[posicionBalon - (11 * i)][0] = 'mb';
+      }
+
+      //Movimiento diagonal arriba-derecha
+      if (posicionBalon - (10 * i) >= 0 &&
+          posicionBalon - (10 * i) < 143 &&
+          fichas[posicionBalon - (10 * i)][0] == 'x') {
+        fichas[posicionBalon - (10 * i)][0] = 'mb';
+      }
+
+      //Movimiento hacia la derecha
+      if (posicionBalon + (1 * i) >= 0 &&
+          posicionBalon + (1 * i) < 143 &&
+          fichas[posicionBalon + (1 * i)][0] == 'x') {
+        fichas[posicionBalon + (1 * i)][0] = 'mb';
+      }
+
+      //Movimiento diagonal abajo-derecha
+      if (posicionBalon + (12 * i) >= 0 &&
+          posicionBalon + (12 * i) < 143 &&
+          fichas[posicionBalon + (12 * i)][0] == 'x') {
+        fichas[posicionBalon + (12 * i)][0] = 'mb';
+      }
+
+      //Movimiento hacia abajo
+      if (posicionBalon + (11 * i) >= 0 &&
+          posicionBalon + (11 * i) < 143 &&
+          fichas[posicionBalon + (11 * i)][0] == 'x') {
+        fichas[posicionBalon + (11 * i)][0] = 'mb';
+      }
+
+      //Movimiento diagonal abajo-izquierda
+      if (posicionBalon + (10 * i) >= 0 &&
+          posicionBalon + (10 * i) < 143 &&
+          fichas[posicionBalon + (10 * i)][0] == 'x') {
+        fichas[posicionBalon + (10 * i)][0] = 'mb';
+      }
+
+      //Movimiento hacia la izquierda
+      if (posicionBalon - (1 * i) >= 0 &&
+          posicionBalon - (1 * i) < 143 &&
+          fichas[posicionBalon - (1 * i)][0] == 'x') {
+        fichas[posicionBalon - (1 * i)][0] = 'mb';
+      }
+
+      //Movimiento diagonal arriba-izquierda
+      if (posicionBalon - (12 * i) >= 0 &&
+          posicionBalon - (12 * i) < 143 &&
+          fichas[posicionBalon - (12 * i)][0] == 'x') {
+        fichas[posicionBalon - (12 * i)][0] = 'mb';
+      }
+    }
+  }
+
+  //Metodo que se encarga de eliminar el area vieja del balon si se ha movido y crear un area nuevo
+  //alrededor de la posicion nueva del balon
+  void areaDelBalon() {
+    for (int i = 0; i < 143; i++) {
+      //Quita el area del balon de la antigua posicion del balon
+      if (fichas[i][2] == 'ab') {
+        fichas[i][2] = '';
+      }
+    }
+
+    //Marcamos la nueva area del balon
+    //Casilla superior
+    if (posicionBalon - 11 > -1 && posicionBalon - 11 < 143) {
+      fichas[posicionBalon - 11][2] = 'ab';
+    }
+
+    //Casilla superior-derecha
+    if (posicionBalon - 10 > -1 && posicionBalon - 10 < 143) {
+      fichas[posicionBalon - 10][2] = 'ab';
+    }
+
+    //Casilla derecha
+    if (posicionBalon + 1 > -1 && posicionBalon + 1 < 143) {
+      fichas[posicionBalon + 1][2] = 'ab';
+    }
+
+    //Casilla inferior-derecha
+    if (posicionBalon + 12 > -1 && posicionBalon + 12 < 143) {
+      fichas[posicionBalon + 12][2] = 'ab';
+    }
+
+    //Casilla inferior
+    if (posicionBalon + 11 > -1 && posicionBalon + 11 < 143) {
+      fichas[posicionBalon + 11][2] = 'ab';
+    }
+
+    //Casilla inferior-izquierda
+    if (posicionBalon + 10 > -1 && posicionBalon + 10 < 143) {
+      fichas[posicionBalon + 10][2] = 'ab';
+    }
+
+    //Casilla izquierda
+    if (posicionBalon - 1 > -1 && posicionBalon - 1 < 143) {
+      fichas[posicionBalon - 1][2] = 'ab';
+    }
+
+    //Casilla superior-izquierda
+    if (posicionBalon - 10 > -1 && posicionBalon - 10 < 143) {
+      fichas[posicionBalon - 10][2] = 'ab';
+    }
   }
 
   @override
@@ -426,8 +541,8 @@ class _GamePageState extends State<GamePage> {
                             ? Colors.green
                             : Colors.green.shade900,
                         child: MiFicha(
-                          ficha: fichas[indice - 11][1].toString(),
-                          estaSeleccionada: fichas[indice - 11][2].toString(),
+                          ficha: fichas[indice - 11][0].toString(),
+                          estaSeleccionada: fichas[indice - 11][1].toString(),
                           onTap: () {
                             casillaSeleccionada(indice - 11);
                           },

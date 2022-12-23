@@ -21,13 +21,16 @@ class MiFicha extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (ficha == 'd') {
+    //Si ficha es 'd' entonces es una casilla disponible para moverse; Si ficha es 'mb' entonces es
+    //una casilla disponible para que la pelota se mueva
+    if (ficha == 'd' || ficha == 'mb') {
       return GestureDetector(
           onTap: onTap,
           child: Container(
             color: Colors.white70,
           ));
     }
+
     //Si ficha es diferente a 'x' significa que hay un jugador en esa casilla
     else if (ficha != 'x') {
       return GestureDetector(
@@ -40,13 +43,6 @@ class MiFicha extends StatelessWidget {
             child: Image.asset('assets/$ficha.png'),
           ));
     }
-    //posible movimiento de pelota
-    // if (hacerJugada == 'j') {
-    //   return GestureDetector
-    //   (
-    //     onTap: onTap,
-    //   );
-    // }
 
     //Si ficha = 'x' retornamos un contenedor vacio
     return Container();
