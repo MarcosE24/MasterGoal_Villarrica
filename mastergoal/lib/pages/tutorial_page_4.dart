@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TutorialPage2 extends StatefulWidget {
-  const TutorialPage2({super.key});
+class TutorialPage4 extends StatefulWidget {
+  const TutorialPage4({super.key});
 
   @override
-  State<TutorialPage2> createState() => _TutorialPage2State();
+  State<TutorialPage4> createState() => _TutorialPage4State();
 }
 
-class _TutorialPage2State extends State<TutorialPage2> {
+class _TutorialPage4State extends State<TutorialPage4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                     color: Color(0xff2aac4a),
                     child: ListTile(
                       title: Text(
-                        "Movimiento del Jugador",
+                        "Movimiento de la Pelota",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -39,7 +39,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                         ),
                       ),
                       subtitle: Text(
-                        "Los jugadores siempre se mueven 1 0 2 casillas en linea recta y en cualquier direccion",
+                        "La pelota puede hacer un movimiento de hasta 4 casillas en cualquier direccion",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -72,7 +72,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                     SizedBox(
                       height: 400,
                       width: 400,
-                      child: Image.asset('assets/T2.png'),
+                      child: Image.asset('assets/T4.png'),
                     ),
                   ],
                 ),
@@ -117,7 +117,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                         //var argument = textoController;
                         Navigator.pushNamed(
                           context,
-                          '/tutorial',
+                          '/tutorial3',
                         );
                         //print(textoController.text);
                         //Navigator.pushNamed(context, "/home");
@@ -147,7 +147,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                         //var argument = textoController;
                         Navigator.pushNamed(
                           context,
-                          '/tutorial3',
+                          '/tutorial5',
                         );
                         //print(textoController.text);
                         //Navigator.pushNamed(context, "/home");
@@ -173,38 +173,6 @@ class _TutorialPage2State extends State<TutorialPage2> {
                 ],
               ),
             ),
-
-            /*Container(
-              
-              margin: const EdgeInsets.all(15),
-              child: ElevatedButton(
-                onPressed: () {
-                  //var argument = textoController;
-                  Navigator.pushNamed(
-                    context,
-                    '/game',
-                  );
-                  //print(textoController.text);
-                  //Navigator.pushNamed(context, "/home");
-                  //se le agrega la ruta a donde se va a dirigir al darle click [mauro]
-                  //Navigator.pushReplacementNamed(context, "/home");
-                },
-                style: ElevatedButton.styleFrom(
-                  //elevation: 10.0,
-                  minimumSize: const Size(180, 60),
-                  primary: const Color(0xff2aac4a),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                child: const Text(
-                  "Despues",
-                  style: TextStyle(
-                    fontSize: 23.0,
-                  ),
-                ),
-              ),
-            ),*/
           ],
         ),
       ),

@@ -72,7 +72,7 @@ class _TutorialPageState extends State<TutorialPage> {
                     SizedBox(
                       height: 400,
                       width: 400,
-                      child: Image.asset('assets/1 copia.png'),
+                      child: Image.asset('assets/T1.png'),
                     ),
                   ],
                 ),
@@ -86,7 +86,7 @@ class _TutorialPageState extends State<TutorialPage> {
                   ElevatedButton(
                     onPressed: () {
                       //var argument = textoController;
-                      Navigator.pushNamed(
+                      Navigator.pushReplacementNamed(
                         context,
                         '/home',
                       );

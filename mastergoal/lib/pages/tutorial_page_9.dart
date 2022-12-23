@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TutorialPage2 extends StatefulWidget {
-  const TutorialPage2({super.key});
+class TutorialPage9 extends StatefulWidget {
+  const TutorialPage9({super.key});
 
   @override
-  State<TutorialPage2> createState() => _TutorialPage2State();
+  State<TutorialPage9> createState() => _TutorialPage9State();
 }
 
-class _TutorialPage2State extends State<TutorialPage2> {
+class _TutorialPage9State extends State<TutorialPage9> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                     color: Color(0xff2aac4a),
                     child: ListTile(
                       title: Text(
-                        "Movimiento del Jugador",
+                        "Movimientos Prohibidos",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -39,7 +39,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                         ),
                       ),
                       subtitle: Text(
-                        "Los jugadores siempre se mueven 1 0 2 casillas en linea recta y en cualquier direccion",
+                        "La pelota no puede terminar en posecion de un equipo contrario al final del turno",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -72,7 +72,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                     SizedBox(
                       height: 400,
                       width: 400,
-                      child: Image.asset('assets/T2.png'),
+                      child: Image.asset('assets/T9.png'),
                     ),
                   ],
                 ),
@@ -117,7 +117,7 @@ class _TutorialPage2State extends State<TutorialPage2> {
                         //var argument = textoController;
                         Navigator.pushNamed(
                           context,
-                          '/tutorial',
+                          '/tutorial8',
                         );
                         //print(textoController.text);
                         //Navigator.pushNamed(context, "/home");
@@ -147,12 +147,8 @@ class _TutorialPage2State extends State<TutorialPage2> {
                         //var argument = textoController;
                         Navigator.pushNamed(
                           context,
-                          '/tutorial3',
+                          '/tutorial10',
                         );
-                        //print(textoController.text);
-                        //Navigator.pushNamed(context, "/home");
-                        //se le agrega la ruta a donde se va a dirigir al darle click [mauro]
-                        //Navigator.pushReplacementNamed(context, "/home");
                       },
                       style: ElevatedButton.styleFrom(
                         //elevation: 10.0,
@@ -173,38 +169,6 @@ class _TutorialPage2State extends State<TutorialPage2> {
                 ],
               ),
             ),
-
-            /*Container(
-              
-              margin: const EdgeInsets.all(15),
-              child: ElevatedButton(
-                onPressed: () {
-                  //var argument = textoController;
-                  Navigator.pushNamed(
-                    context,
-                    '/game',
-                  );
-                  //print(textoController.text);
-                  //Navigator.pushNamed(context, "/home");
-                  //se le agrega la ruta a donde se va a dirigir al darle click [mauro]
-                  //Navigator.pushReplacementNamed(context, "/home");
-                },
-                style: ElevatedButton.styleFrom(
-                  //elevation: 10.0,
-                  minimumSize: const Size(180, 60),
-                  primary: const Color(0xff2aac4a),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                child: const Text(
-                  "Despues",
-                  style: TextStyle(
-                    fontSize: 23.0,
-                  ),
-                ),
-              ),
-            ),*/
           ],
         ),
       ),
