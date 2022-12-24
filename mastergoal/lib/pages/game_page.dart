@@ -92,151 +92,155 @@ class _GamePageState extends State<GamePage> {
 
   //Posiciones iniciles de las fichas y posiciones en blanco y prohibidas
   var fichas = [
-    //[Ficha,Seleccionado, AreaPelota]
+    //[Ficha,Seleccionado, AreaBalon,ParedTablero]
+    //Ficha: pude ser en blanco(x), Jugador 1(jugador1), Jugador 2(jugador2), o Balon(balon)
+    //Seleccionado: Puede estar seleccionado(seleccionado) o no(noseleccionado)
+    //AreaBalon: Puede ser que marque el area del balon(ab) o que esta libre( )
+    //ParedTablero: Delimitan las lineas tanto izquierda como derecha
     //Posiciones en blanco(x)
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["jugador2", "noseleccionado", ''], //Jugador 2(defensa) posicion 16
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["jugador2", "noseleccionado", ''], //Jugador 2(delantero) posicion 38
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", 'ab'],
-    ["x", "noseleccionado", 'ab'],
-    ["x", "noseleccionado", 'ab'],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", 'ab'],
-    ["balon", "noseleccionado", ''], //Pelota posicion 71
-    ["x", "noseleccionado", 'ab'],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", 'ab'],
-    ["x", "noseleccionado", 'ab'],
-    ["x", "noseleccionado", 'ab'],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["jugador1", "noseleccionado", ''], //Jugador 1(delantero) posicion 104
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["jugador1", "noseleccionado", ''], //Jugador 1(defensa) posicion 126
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", ''],
-    ["x", "noseleccionado", '']
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["jugador2", "noseleccionado", '', ''], //Jugador 2(defensa) posicion 16
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["jugador2", "noseleccionado", '', ''], //Jugador 2(delantero) posicion 38
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", 'ab', ''],
+    ["x", "noseleccionado", 'ab', ''],
+    ["x", "noseleccionado", 'ab', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", 'ab', ''],
+    ["balon", "noseleccionado", '', ''], //Pelota posicion 71
+    ["x", "noseleccionado", 'ab', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", 'ab', ''],
+    ["x", "noseleccionado", 'ab', ''],
+    ["x", "noseleccionado", 'ab', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["jugador1", "noseleccionado", '', ''], //Jugador 1(delantero) posicion 104
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["jugador1", "noseleccionado", '', ''], //Jugador 1(defensa) posicion 126
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d'],
+    ["x", "noseleccionado", '', '|i'],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', ''],
+    ["x", "noseleccionado", '', '|d']
   ];
 
   //Metodo que reconoce que estamos queriendo hacer cuando tocamos una casilla
@@ -297,157 +301,193 @@ class _GamePageState extends State<GamePage> {
     });
   }
 
+  //Metodo que muestra los posibles movimientos para los jugadores
   void jugadorMarcado(int indice) {
+    int i;
     //Mostrar posibles movimientos para Jugador 1
+    //Para la izquierda, derecha y diagonales son validaciones un poco diferentes
     //Movimiento hacia arriba
-    if (indice - 11 >= 0 &&
-        indice - 11 < 143 &&
-        fichas[indice - 11][0] == 'x') {
-      fichas[indice - 11][0] = 'd';
-    }
-    if (indice - (11 * 2) >= 0 &&
-        indice - (11 * 2) < 143 &&
-        fichas[indice - (11 * 2)][0] == 'x') {
-      fichas[indice - (11 * 2)][0] = 'd';
+    for (i = 1; i < 3; i++) {
+      if (enRango(indice - (11 * i)) && fichas[indice - (11 * i)][0] == 'x') {
+        fichas[indice - (11 * i)][0] = 'd';
+      }
     }
 
     //Movimiento diagonal arriba-derecha
-    if (indice - 10 >= 0 &&
-        indice - 10 < 143 &&
-        fichas[indice - 10][0] == 'x') {
-      fichas[indice - 10][0] = 'd';
-    }
-    if (indice - (10 * 2) >= 0 &&
-        indice - (10 * 2) < 143 &&
-        fichas[indice - (10 * 2)][0] == 'x') {
-      fichas[indice - (10 * 2)][0] = 'd';
+    for (i = 1; i < 3; i++) {
+      if (enRango(indice - (10 * i))) {
+        if (fichas[indice][3] != '|d' && fichas[indice - (10 * i)][0] == 'x') {
+          fichas[indice - (10 * i)][0] = 'd';
+        }
+        if (fichas[indice - (10 * i)][3] == '|d') {
+          break;
+        }
+      }
     }
 
     //Movimiento hacia la derecha
-    if (indice + 1 >= 0 && indice + 1 < 143 && fichas[indice + 1][0] == 'x') {
-      fichas[indice + 1][0] = 'd';
-    }
-    if (indice + (1 * 2) >= 0 &&
-        indice + (1 * 2) < 143 &&
-        fichas[indice + (1 * 2)][0] == 'x') {
-      fichas[indice + (1 * 2)][0] = 'd';
+    for (i = 1; i < 3; i++) {
+      if (enRango(indice + (1 * i))) {
+        if (fichas[indice][3] != '|d' && fichas[indice + (1 * i)][0] == 'x') {
+          fichas[indice + (1 * i)][0] = 'd';
+        }
+        if (fichas[indice + (1 * i)][3] == '|d') {
+          break;
+        }
+      }
     }
 
     //Movimiento diagonal abajo-derecha
-    if (indice + 12 >= 0 &&
-        indice + 12 < 143 &&
-        fichas[indice + 12][0] == 'x') {
-      fichas[indice + 12][0] = 'd';
-    }
-    if (indice + (12 * 2) >= 0 &&
-        indice + (12 * 2) < 143 &&
-        fichas[indice + (12 * 2)][0] == 'x') {
-      fichas[indice + (12 * 2)][0] = 'd';
+    for (i = 1; i < 3; i++) {
+      if (enRango(indice + (12 * i))) {
+        if (fichas[indice][3] != '|d' && fichas[indice + (12 * i)][0] == 'x') {
+          fichas[indice + (12 * i)][0] = 'd';
+        }
+        if (fichas[indice + (12 * i)][3] == '|d') {
+          break;
+        }
+      }
     }
 
     //Movimiento hacia abajo
-    if (indice + 11 >= 0 &&
-        indice + 11 < 143 &&
-        fichas[indice + 11][0] == 'x') {
-      fichas[indice + 11][0] = 'd';
-    }
-    if (indice + (11 * 2) >= 0 &&
-        indice + (11 * 2) < 143 &&
-        fichas[indice + (11 * 2)][0] == 'x') {
-      fichas[indice + (11 * 2)][0] = 'd';
+    for (i = 1; i < 3; i++) {
+      if (enRango(indice + (11 * i)) && fichas[indice + (11 * i)][0] == 'x') {
+        fichas[indice + (11 * i)][0] = 'd';
+      }
     }
 
     //Movimiento diagonal abajo-izquierda
-    if (indice + 10 >= 0 &&
-        indice + 10 < 143 &&
-        fichas[indice + 10][0] == 'x') {
-      fichas[indice + 10][0] = 'd';
-    }
-    if (indice + (10 * 2) >= 0 &&
-        indice + (10 * 2) < 143 &&
-        fichas[indice + (10 * 2)][0] == 'x') {
-      fichas[indice + (10 * 2)][0] = 'd';
+    for (i = 1; i < 3; i++) {
+      if (enRango(indice + (10 * i))) {
+        if (fichas[indice][3] != '|i' && fichas[indice + (10 * i)][0] == 'x') {
+          fichas[indice + (10 * i)][0] = 'd';
+        }
+        if (fichas[indice + (10 * i)][3] == '|i') {
+          break;
+        }
+      }
     }
 
     //Movimiento hacia la izquierda
-    if (indice - 1 >= 0 && indice - 1 < 143 && fichas[indice - 1][0] == 'x') {
-      fichas[indice - 1][0] = 'd';
-    }
-    if (indice - (1 * 2) >= 0 &&
-        indice - (1 * 2) < 143 &&
-        fichas[indice - (1 * 2)][0] == 'x') {
-      fichas[indice - (1 * 2)][0] = 'd';
+    for (i = 1; i < 3; i++) {
+      if (enRango(indice - (1 * i))) {
+        if (fichas[indice][3] != '|i' && fichas[indice - (1 * i)][0] == 'x') {
+          fichas[indice - (1 * i)][0] = 'd';
+        }
+        if (fichas[indice - (1 * i)][3] == '|i') {
+          break;
+        }
+      }
     }
 
     //Movimiento diagonal arriba-izquierda
-    if (indice - 12 >= 0 &&
-        indice - 12 < 143 &&
-        fichas[indice - 12][0] == 'x') {
-      fichas[indice - 12][0] = 'd';
-    }
-    if (indice - (12 * 2) >= 0 &&
-        indice - (12 * 2) < 143 &&
-        fichas[indice - (12 * 2)][0] == 'x') {
-      fichas[indice - (12 * 2)][0] = 'd';
+    for (i = 1; i < 3; i++) {
+      if (enRango(indice - (12 * i))) {
+        if (fichas[indice][3] != '|i' && fichas[indice - (12 * i)][0] == 'x') {
+          fichas[indice - (12 * i)][0] = 'd';
+        }
+        if (fichas[indice - (12 * i)][3] == '|i') {
+          break;
+        }
+      }
     }
   }
 
+  //Metodo que muestra los posibles movimientos para el balon
   void movimientoPatearBalon(int indice) {
+    int i;
+    //Para la izquierda, derecha y diagonales son validaciones un poco diferentes
+    //Movimiento hacia Arriba
     for (int i = 1; i < 5; i++) {
-      //Movimiento hacia Arriba
-      if (posicionBalon - (11 * i) >= 0 &&
-          posicionBalon - (11 * i) < 143 &&
+      if (enRango(posicionBalon - (11 * i)) &&
           fichas[posicionBalon - (11 * i)][0] == 'x') {
         fichas[posicionBalon - (11 * i)][0] = 'mb';
       }
+    }
 
-      //Movimiento diagonal arriba-derecha
-      if (posicionBalon - (10 * i) >= 0 &&
-          posicionBalon - (10 * i) < 143 &&
-          fichas[posicionBalon - (10 * i)][0] == 'x') {
-        fichas[posicionBalon - (10 * i)][0] = 'mb';
+    //Movimiento diagonal arriba-derecha
+    for (i = 1; i < 5; i++) {
+      if (enRango(posicionBalon - (10 * i))) {
+        if (fichas[posicionBalon][3] != '|d' &&
+            fichas[posicionBalon - (10 * i)][0] == 'x') {
+          fichas[posicionBalon - (10 * i)][0] = 'mb';
+        }
+        if (fichas[posicionBalon - (10 * i)][3] == '|d') {
+          break;
+        }
       }
+    }
 
-      //Movimiento hacia la derecha
-      if (posicionBalon + (1 * i) >= 0 &&
-          posicionBalon + (1 * i) < 143 &&
-          fichas[posicionBalon + (1 * i)][0] == 'x') {
-        fichas[posicionBalon + (1 * i)][0] = 'mb';
+    //Movimiento hacia la derecha
+    for (i = 1; i < 5; i++) {
+      if (enRango(posicionBalon + (1 * i))) {
+        if (fichas[posicionBalon][3] != '|d' &&
+            fichas[posicionBalon + (1 * i)][0] == 'x') {
+          fichas[posicionBalon + (1 * i)][0] = 'mb';
+        }
+        if (fichas[posicionBalon + (1 * i)][3] == '|d') {
+          break;
+        }
       }
+    }
 
-      //Movimiento diagonal abajo-derecha
-      if (posicionBalon + (12 * i) >= 0 &&
-          posicionBalon + (12 * i) < 143 &&
-          fichas[posicionBalon + (12 * i)][0] == 'x') {
-        fichas[posicionBalon + (12 * i)][0] = 'mb';
+    //Movimiento diagonal abajo-derecha
+    for (i = 1; i < 5; i++) {
+      if (enRango(posicionBalon + (12 * i))) {
+        if (fichas[posicionBalon][3] != '|d' &&
+            fichas[posicionBalon + (12 * i)][0] == 'x') {
+          fichas[posicionBalon + (12 * i)][0] = 'mb';
+        }
+        if (fichas[posicionBalon + (12 * i)][3] == '|d') {
+          break;
+        }
       }
+    }
 
-      //Movimiento hacia abajo
-      if (posicionBalon + (11 * i) >= 0 &&
-          posicionBalon + (11 * i) < 143 &&
+    //Movimiento hacia abajo
+    for (i = 1; i < 5; i++) {
+      if (enRango(posicionBalon + (11 * i)) &&
           fichas[posicionBalon + (11 * i)][0] == 'x') {
         fichas[posicionBalon + (11 * i)][0] = 'mb';
       }
+    }
 
-      //Movimiento diagonal abajo-izquierda
-      if (posicionBalon + (10 * i) >= 0 &&
-          posicionBalon + (10 * i) < 143 &&
-          fichas[posicionBalon + (10 * i)][0] == 'x') {
-        fichas[posicionBalon + (10 * i)][0] = 'mb';
+    //Movimiento diagonal abajo-izquierda
+    for (i = 1; i < 5; i++) {
+      if (enRango(posicionBalon + (10 * i))) {
+        if (fichas[posicionBalon][3] != '|i' &&
+            fichas[posicionBalon + (10 * i)][0] == 'x') {
+          fichas[posicionBalon + (10 * i)][0] = 'mb';
+        }
+        if (fichas[posicionBalon + (10 * i)][3] == '|i') {
+          break;
+        }
       }
+    }
 
-      //Movimiento hacia la izquierda
-      if (posicionBalon - (1 * i) >= 0 &&
-          posicionBalon - (1 * i) < 143 &&
-          fichas[posicionBalon - (1 * i)][0] == 'x') {
-        fichas[posicionBalon - (1 * i)][0] = 'mb';
+    //Movimiento hacia la izquierda
+    for (i = 1; i < 5; i++) {
+      if (enRango(posicionBalon - (1 * i))) {
+        if (fichas[posicionBalon][3] != '|i' &&
+            fichas[posicionBalon - (1 * i)][0] == 'x') {
+          fichas[posicionBalon - (1 * i)][0] = 'mb';
+        }
+        if (fichas[posicionBalon - (1 * i)][3] == '|i') {
+          break;
+        }
       }
+    }
 
-      //Movimiento diagonal arriba-izquierda
-      if (posicionBalon - (12 * i) >= 0 &&
-          posicionBalon - (12 * i) < 143 &&
-          fichas[posicionBalon - (12 * i)][0] == 'x') {
-        fichas[posicionBalon - (12 * i)][0] = 'mb';
+    //Movimiento diagonal arriba-izquierda
+    for (i = 1; i < 5; i++) {
+      if (enRango(posicionBalon - (12 * i))) {
+        if (fichas[posicionBalon][3] != '|i' &&
+            fichas[posicionBalon - (12 * i)][0] == 'x') {
+          fichas[posicionBalon - (12 * i)][0] = 'mb';
+        }
+        if (fichas[posicionBalon - (12 * i)][3] == '|i') {
+          break;
+        }
       }
     }
   }
@@ -455,8 +495,8 @@ class _GamePageState extends State<GamePage> {
   //Metodo que se encarga de eliminar el area vieja del balon si se ha movido y crear un area nuevo
   //alrededor de la posicion nueva del balon
   void areaDelBalon() {
+    //Quita el area del balon de la antigua posicion del balon
     for (int i = 0; i < 143; i++) {
-      //Quita el area del balon de la antigua posicion del balon
       if (fichas[i][2] == 'ab') {
         fichas[i][2] = '';
       }
@@ -464,44 +504,52 @@ class _GamePageState extends State<GamePage> {
 
     //Marcamos la nueva area del balon
     //Casilla superior
-    if (posicionBalon - 11 > -1 && posicionBalon - 11 < 143) {
+    if (enRango(posicionBalon - 11)) {
       fichas[posicionBalon - 11][2] = 'ab';
     }
 
     //Casilla superior-derecha
-    if (posicionBalon - 10 > -1 && posicionBalon - 10 < 143) {
+    if (enRango(posicionBalon - 10)) {
       fichas[posicionBalon - 10][2] = 'ab';
     }
 
     //Casilla derecha
-    if (posicionBalon + 1 > -1 && posicionBalon + 1 < 143) {
+    if (enRango(posicionBalon + 1)) {
       fichas[posicionBalon + 1][2] = 'ab';
     }
 
     //Casilla inferior-derecha
-    if (posicionBalon + 12 > -1 && posicionBalon + 12 < 143) {
+    if (enRango(posicionBalon + 12)) {
       fichas[posicionBalon + 12][2] = 'ab';
     }
 
     //Casilla inferior
-    if (posicionBalon + 11 > -1 && posicionBalon + 11 < 143) {
+    if (enRango(posicionBalon + 11)) {
       fichas[posicionBalon + 11][2] = 'ab';
     }
 
     //Casilla inferior-izquierda
-    if (posicionBalon + 10 > -1 && posicionBalon + 10 < 143) {
+    if (enRango(posicionBalon + 10)) {
       fichas[posicionBalon + 10][2] = 'ab';
     }
 
     //Casilla izquierda
-    if (posicionBalon - 1 > -1 && posicionBalon - 1 < 143) {
+    if (enRango(posicionBalon - 1)) {
       fichas[posicionBalon - 1][2] = 'ab';
     }
 
     //Casilla superior-izquierda
-    if (posicionBalon - 10 > -1 && posicionBalon - 10 < 143) {
-      fichas[posicionBalon - 10][2] = 'ab';
+    if (enRango(posicionBalon - 12)) {
+      fichas[posicionBalon - 12][2] = 'ab';
     }
+  }
+
+  //Metodo que valida si la posicion dada esta dentro del tablero
+  bool enRango(int indice) {
+    if (indice > -1 && indice < 143) {
+      return true;
+    }
+    return false;
   }
 
   @override
