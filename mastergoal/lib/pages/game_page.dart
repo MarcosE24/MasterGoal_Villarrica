@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mastergoal/clases/ficha.dart';
+import 'package:mastergoal/pages/timer_page.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
@@ -563,13 +564,11 @@ class _GamePageState extends State<GamePage> {
             Expanded(
               flex: 1,
               child: Container(
-                alignment: Alignment.center,
-                //color: Colors.amber,
-                width: 392,
-                height: 100,
-                child: const Text("Aca iran los marcadores y el cronometro",
-                    textAlign: TextAlign.center),
-              ),
+                  alignment: Alignment.center,
+                  //color: Colors.amber,
+                  width: 392,
+                  height: 100,
+                  child: const TimerPage()),
             ),
             /*SizedBox(
               height: 150,

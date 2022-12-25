@@ -3,6 +3,7 @@ import 'package:mastergoal/pages/creditos_page.dart';
 import 'package:mastergoal/pages/game_page.dart';
 import 'package:mastergoal/pages/home_page.dart';
 import 'package:mastergoal/pages/login_page.dart';
+import 'package:mastergoal/pages/timer_page.dart';
 import 'package:mastergoal/pages/tutorial_page.dart';
 import 'package:mastergoal/pages/tutorial_page_2.dart';
 import 'package:mastergoal/pages/tutorial_page_3.dart';
