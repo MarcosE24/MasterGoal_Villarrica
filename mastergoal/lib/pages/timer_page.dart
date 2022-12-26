@@ -11,7 +11,7 @@ class TimerPage extends StatefulWidget {
 
 class _TimerPageState extends State<TimerPage> {
   late Timer _timer;
-  int _start = 5;
+  int _start = 120;
 
   @override
   void initState() {
@@ -47,9 +47,19 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext context) {
     // initState();
-    return Text(
+    return Center(
+        child: Text(
+      '$_start seg',
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+          color: Color.fromARGB(255, 0, 0, 0),
+          fontSize: 20,
+          fontWeight: FontWeight.bold),
+    ));
+
+    /*Text(
       '$_start',
       style: Theme.of(context).textTheme.headline4,
-    );
+    );*/
   }
 }

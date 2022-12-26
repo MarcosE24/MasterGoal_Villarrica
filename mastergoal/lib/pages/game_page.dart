@@ -696,6 +696,21 @@ class _GamePageState extends State<GamePage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
+                                height: 32,
+                                width: 80,
+                                color: Colors.white,
+                                child: const TimerPage()),
+                            Container(
+                              width: 5,
+                              color: Colors.transparent,
+                              child: const Text(
+                                "",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                            Container(
                               width: 32,
                               color: Colors.red,
                               child: const Text(
@@ -725,7 +740,8 @@ class _GamePageState extends State<GamePage> {
                               child: const Text(
                                 "vs",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
                               ),
                             ),
                             Container(
