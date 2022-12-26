@@ -4,9 +4,6 @@ class MiFicha extends StatelessWidget {
   //Jugador 1, Jugador 2, Pelota, x(vacio), o(posibles movimientos)
   final String ficha;
 
-  //Posible toque de la pelota
-  //final String hacerJugada;
-
   //Si esta ficha esta seleccionada o no
   final String estaSeleccionada;
 
@@ -31,6 +28,11 @@ class MiFicha extends StatelessWidget {
           ));
     }
 
+    //Si ficha es 'arco' solo devuelve un contenedor vacio pero con un gesture
+    else if (ficha == 'arco') {
+      return Container();
+    }
+
     //Si ficha es diferente a 'x' significa que hay un jugador en esa casilla
     else if (ficha != 'x') {
       return GestureDetector(
@@ -39,7 +41,7 @@ class MiFicha extends StatelessWidget {
             color: estaSeleccionada == 'seleccionado'
                 ? Colors.cyan[200]
                 : Colors.transparent,
-            padding: const EdgeInsets.all(1),
+            //padding: const EdgeInsets.all(1),
             child: Image.asset('assets/$ficha.png'),
           ));
     }
