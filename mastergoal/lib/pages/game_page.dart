@@ -12,7 +12,10 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
+  String jugadorRojo = '';
+  String jugadorBlanco = '';
   int posicionBalon = 82;
+  int cont = 0;
   int marcador1 = 0;
   int marcador2 = 0;
   int indiceFichaActualSeleccionada = -1;
@@ -284,19 +287,19 @@ class _GamePageState extends State<GamePage> {
 
       //Verifica si la ficha del jugador se encuentra en el area de la pelota, si es verdad se
       //habilitan los movimientos posibles
-      if ((fichas[indice][0] == 'jugador1' ||
-              fichas[indice][0] == 'jugador2') &&
+      if ((fichas[indice][0] == jugadorRojo ||
+              fichas[indice][0] == jugadorBlanco) &&
           fichas[indice][2] == 'ab') {
         jugadorUltimoPase = fichas[indice][0];
-        turnoJugador == "jugador1"
-            ? turnoJugador = "jugador2"
-            : turnoJugador = "jugador1";
+        turnoJugador == jugadorRojo
+            ? turnoJugador = jugadorBlanco
+            : turnoJugador = jugadorRojo;
 
         movimientoPatearBalon(indice);
       } else {
-        turnoJugador == "jugador1"
-            ? turnoJugador = "jugador2"
-            : turnoJugador = "jugador1";
+        turnoJugador == jugadorRojo
+            ? turnoJugador = jugadorBlanco
+            : turnoJugador = jugadorRojo;
       }
     }
 
@@ -624,24 +627,24 @@ class _GamePageState extends State<GamePage> {
         (156 < posicionBalon && posicionBalon < 162)) {
       //Verifica si el gol fue en contra
       if ((2 < posicionBalon && posicionBalon < 8) &&
-          jugadorUltimoPase == "jugador2") {
+          jugadorUltimoPase == jugadorBlanco) {
         golEnContra = true;
-        turnoJugador = "jugador2";
+        turnoJugador = jugadorBlanco;
       } else if ((156 < posicionBalon && posicionBalon < 162) &&
-          jugadorUltimoPase == "jugador1") {
+          jugadorUltimoPase == jugadorRojo) {
         golEnContra = true;
-        turnoJugador = "jugador1";
+        turnoJugador = jugadorRojo;
       }
 
       //Valida que equipo convirtio el gol y si no fue gol en contra. Suma los goles
-      if (jugadorUltimoPase == 'jugador1') {
+      if (jugadorUltimoPase == jugadorRojo) {
         if (golEnContra) {
           marcador2++;
           golEnContra = false;
         } else {
           marcador1++;
         }
-      } else if (jugadorUltimoPase == 'jugador2') {
+      } else if (jugadorUltimoPase == jugadorBlanco) {
         if (golEnContra) {
           marcador1++;
           golEnContra = false;
@@ -652,17 +655,17 @@ class _GamePageState extends State<GamePage> {
 
       //Resetea las posiciones de las fichas cuando se convierta un gol
       for (int i = 0; i < 164; i++) {
-        if (fichas[i][0] == 'jugador1' ||
-            fichas[i][0] == 'jugador2' ||
+        if (fichas[i][0] == jugadorRojo ||
+            fichas[i][0] == jugadorBlanco ||
             fichas[i][0] == 'balon') {
           fichas[i][0] = 'x';
         }
       }
-      fichas[27][0] = 'jugador2';
-      fichas[49][0] = 'jugador2';
+      fichas[27][0] = jugadorBlanco;
+      fichas[49][0] = jugadorBlanco;
       fichas[82][0] = 'balon';
-      fichas[115][0] = 'jugador1';
-      fichas[137][0] = 'jugador1';
+      fichas[115][0] = jugadorRojo;
+      fichas[137][0] = jugadorRojo;
       posicionBalon = 82;
       desmarcarTodo();
       areaDelBalon();
@@ -671,6 +674,29 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
+    final nombrelogin = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map;
+    if (nombrelogin['NombreUser'] == "true" && cont == 0) {
+      jugadorRojo = "jugador1";
+      jugadorBlanco = "jugador2";
+      turnoJugador = jugadorRojo;
+      fichas[27][0] = jugadorBlanco;
+      fichas[49][0] = jugadorBlanco;
+      fichas[115][0] = jugadorRojo;
+      fichas[137][0] = jugadorRojo;
+      cont = 1 + 1;
+    } else if (nombrelogin['NombreUser'] == "false" && cont == 0) {
+      print(cont);
+
+      jugadorRojo = "jugador2";
+      jugadorBlanco = "jugador1";
+      turnoJugador = jugadorBlanco;
+      fichas[27][0] = jugadorBlanco;
+      fichas[49][0] = jugadorBlanco;
+      fichas[115][0] = jugadorRojo;
+      fichas[137][0] = jugadorRojo;
+      cont = 1 + 1;
+    }
     return Scaffold(
         appBar: AppBar(
           title: const Text("MasterGoal"),
@@ -695,33 +721,49 @@ class _GamePageState extends State<GamePage> {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Container(
-                                height: 32,
-                                width: 80,
-                                color: Colors.white,
-                                child: const TimerPage()),
-                            Container(
-                              width: 5,
-                              color: Colors.transparent,
-                              child: const Text(
-                                "",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
+                            if (nombrelogin['NombreLogin'] == "true")
+                              Container(
+                                  height: 32,
+                                  width: 80,
+                                  color: Colors.white,
+                                  child: const TimerPage()),
+                            if (nombrelogin['NombreUser'] == "true")
+                              Container(
+                                width: 5,
+                                color: Colors.transparent,
+                                child: const Text(
+                                  "",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white),
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: 32,
-                              color: Colors.red,
-                              child: const Text(
-                                "J1",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.bold),
+                            if (nombrelogin['NombreUser'] == "true")
+                              Container(
+                                width: 32,
+                                color: Colors.red,
+                                child: const Text(
+                                  "J1",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            ),
+                            if (nombrelogin['NombreUser'] == "false")
+                              Container(
+                                width: 32,
+                                color: Colors.blue[900],
+                                child: const Text(
+                                  "J1",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             Container(
                               width: 32,
                               color: Colors.black,
@@ -756,18 +798,32 @@ class _GamePageState extends State<GamePage> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Container(
-                              width: 32,
-                              color: Colors.blue[900],
-                              child: const Text(
-                                "J2",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.bold),
+                            if (nombrelogin['NombreUser'] == "true")
+                              Container(
+                                width: 32,
+                                color: Colors.blue[900],
+                                child: const Text(
+                                  "J2",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            )
+                            if (nombrelogin['NombreUser'] == "false")
+                              Container(
+                                width: 32,
+                                color: Colors.red,
+                                child: const Text(
+                                  "J2",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
                           ]),
                     )
                   ],

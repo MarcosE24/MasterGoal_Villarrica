@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                   //var argument = textoController;
                   Navigator.pushNamed(
                     context,
-                    '/game',
+                    '/preconf',
                   );
                   //print(textoController.text);
                   //Navigator.pushNamed(context, "/home");

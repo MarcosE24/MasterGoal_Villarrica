@@ -47,6 +47,7 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext context) {
     // initState();
+
     return Center(
         child: Text(
       '$_start seg',

@@ -14,6 +14,7 @@ import 'package:mastergoal/pages/tutorial_page_7.dart';
 import 'package:mastergoal/pages/tutorial_page_8.dart';
 import 'package:mastergoal/pages/tutorial_page_9.dart';
 import 'package:mastergoal/pages/tutorial_page_10.dart';
+import 'package:mastergoal/pages/preconf_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
     '/tutorial8': (context) => const TutorialPage8(),
     '/tutorial9': (context) => const TutorialPage9(),
     '/tutorial10': (context) => const TutorialPage10(),
+    '/preconf': (context) => const PreConf(),
+    '/timer': (context) => const TimerPage(),
   };
 
   // El widged main de la app
