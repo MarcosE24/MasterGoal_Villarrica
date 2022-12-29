@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mastergoal/clases/ficha.dart';
 import 'package:mastergoal/pages/timer_page.dart';
@@ -19,6 +17,7 @@ class _GamePageState extends State<GamePage> {
   int marcador1 = 0;
   int marcador2 = 0;
   int indiceFichaActualSeleccionada = -1;
+  int numPases = 0;
   String fichaActualSeleccionada = '';
   String jugadorUltimoPase = '';
   String turnoJugador = 'jugador1';
@@ -104,7 +103,8 @@ class _GamePageState extends State<GamePage> {
   //Posiciones iniciles de las fichas y posiciones en blanco y prohibidas
   var fichas = [
     //[Ficha,Seleccionado, AreaBalon,ParedTablero]
-    //Ficha: pude ser en blanco(x), Jugador 1(jugador1), Jugador 2(jugador2), o Balon(balon)
+    //Ficha: pude ser en blanco(x), Jugador 1(jugador1), Jugador 2(jugador2) o Balon(balon); el
+    //'arco' son las posiciones de las porterias, estas son inalterables
     //Seleccionado: Puede estar seleccionado(seleccionado) o no(noseleccionado)
     //AreaBalon: Puede ser que marque el area del balon(ab) o que esta libre( )
     //ParedTablero: Delimitan las lineas tanto izquierda como derecha
@@ -283,6 +283,7 @@ class _GamePageState extends State<GamePage> {
     if (fichas[indice][0].toString() == "d") {
       fichas[indice][0] = fichaActualSeleccionada;
       fichas[indiceFichaActualSeleccionada][0] = 'x';
+      indiceFichaActualSeleccionada = indice;
       desmarcarTodo();
 
       //Verifica si la ficha del jugador se encuentra en el area de la pelota, si es verdad se
@@ -295,7 +296,7 @@ class _GamePageState extends State<GamePage> {
             ? turnoJugador = jugadorBlanco
             : turnoJugador = jugadorRojo;
 
-        movimientoPatearBalon(indice);
+        movimientoPatearBalon();
       } else {
         turnoJugador == jugadorRojo
             ? turnoJugador = jugadorBlanco
@@ -312,6 +313,14 @@ class _GamePageState extends State<GamePage> {
       areaDelBalon();
       desmarcarTodo();
       jugadaGol(indice);
+      if (esPase(posicionBalon)) {
+        numPases++;
+        turnoJugador = jugadorUltimoPase;
+        indiceFichaActualSeleccionada = obtenerIndice();
+        movimientoPatearBalon();
+      } else {
+        numPases = 0;
+      }
     }
 
     //Si la casilla seleccionada contiene cualquiera de las fichas
@@ -444,17 +453,23 @@ class _GamePageState extends State<GamePage> {
   }
 
   //Metodo que muestra los posibles movimientos para el balon
-  void movimientoPatearBalon(int indice) {
+  void movimientoPatearBalon() {
     int i;
     //Para la izquierda, derecha y diagonales son validaciones un poco diferentes
     //Para arriba, abajo y las diagonales se agrego una condicion mas para poder moverse dentro de
     // los arcos y anotar el gol
     //Movimiento hacia Arriba
-    for (int i = 1; i < 5; i++) {
+    for (i = 1; i < 5; i++) {
       if (enTableroBalon(posicionBalon - (11 * i)) &&
           (fichas[posicionBalon - (11 * i)][0] == 'x' ||
               fichas[posicionBalon - (11 * i)][0] == 'arco')) {
         fichas[posicionBalon - (11 * i)][0] = 'mb';
+        if (esPase(posicionBalon - (11 * i)) && numPases > 3) {
+          fichas[posicionBalon - (11 * i)][0] = 'x';
+        }
+        if (jugadaProhibida(posicionBalon - (11 * i))) {
+          fichas[posicionBalon - (11 * i)][0] = 'x';
+        }
       }
     }
 
@@ -465,7 +480,12 @@ class _GamePageState extends State<GamePage> {
             (fichas[posicionBalon - (10 * i)][0] == 'x' ||
                 fichas[posicionBalon - (10 * i)][0] == 'arco')) {
           fichas[posicionBalon - (10 * i)][0] = 'mb';
-          //print('entra');
+          if (esPase(posicionBalon - (10 * i)) && numPases > 3) {
+            fichas[posicionBalon - (10 * i)][0] = 'x';
+          }
+          if (jugadaProhibida(posicionBalon - (10 * i))) {
+            fichas[posicionBalon - (10 * i)][0] = 'x';
+          }
         }
         if (fichas[posicionBalon - (10 * i)][3] == '|d') {
           break;
@@ -479,6 +499,12 @@ class _GamePageState extends State<GamePage> {
         if (fichas[posicionBalon][3] != '|d' &&
             fichas[posicionBalon + (1 * i)][0] == 'x') {
           fichas[posicionBalon + (1 * i)][0] = 'mb';
+          if (esPase(posicionBalon + (1 * i)) && numPases > 3) {
+            fichas[posicionBalon + (1 * i)][0] = 'x';
+          }
+          if (jugadaProhibida(posicionBalon + (1 * i))) {
+            fichas[posicionBalon + (1 * i)][0] = 'x';
+          }
         }
         if (fichas[posicionBalon + (1 * i)][3] == '|d') {
           break;
@@ -493,6 +519,12 @@ class _GamePageState extends State<GamePage> {
             (fichas[posicionBalon + (12 * i)][0] == 'x' ||
                 fichas[posicionBalon + (12 * i)][0] == 'arco')) {
           fichas[posicionBalon + (12 * i)][0] = 'mb';
+          if (esPase(posicionBalon + (12 * i)) && numPases > 3) {
+            fichas[posicionBalon + (12 * i)][0] = 'x';
+          }
+          if (jugadaProhibida(posicionBalon + (12 * i))) {
+            fichas[posicionBalon + (12 * i)][0] = 'x';
+          }
         }
         if (fichas[posicionBalon + (12 * i)][3] == '|d') {
           break;
@@ -506,6 +538,12 @@ class _GamePageState extends State<GamePage> {
           (fichas[posicionBalon + (11 * i)][0] == 'x' ||
               fichas[posicionBalon + (11 * i)][0] == 'arco')) {
         fichas[posicionBalon + (11 * i)][0] = 'mb';
+        if (esPase(posicionBalon + (11 * i)) && numPases > 3) {
+          fichas[posicionBalon + (11 * i)][0] = 'x';
+        }
+        if (jugadaProhibida(posicionBalon + (11 * i))) {
+          fichas[posicionBalon + (11 * i)][0] = 'x';
+        }
       }
     }
 
@@ -516,6 +554,12 @@ class _GamePageState extends State<GamePage> {
             (fichas[posicionBalon + (10 * i)][0] == 'x' ||
                 fichas[posicionBalon + (10 * i)][0] == 'arco')) {
           fichas[posicionBalon + (10 * i)][0] = 'mb';
+          if (esPase(posicionBalon + (10 * i)) && numPases > 3) {
+            fichas[posicionBalon + (10 * i)][0] = 'x';
+          }
+          if (jugadaProhibida(posicionBalon + (10 * i))) {
+            fichas[posicionBalon + (10 * i)][0] = 'x';
+          }
         }
         if (fichas[posicionBalon + (10 * i)][3] == '|i') {
           break;
@@ -529,6 +573,12 @@ class _GamePageState extends State<GamePage> {
         if (fichas[posicionBalon][3] != '|i' &&
             fichas[posicionBalon - (1 * i)][0] == 'x') {
           fichas[posicionBalon - (1 * i)][0] = 'mb';
+          if (esPase(posicionBalon - (1 * i)) && numPases > 3) {
+            fichas[posicionBalon - (1 * i)][0] = 'x';
+          }
+          if (jugadaProhibida(posicionBalon - (1 * i))) {
+            fichas[posicionBalon - (1 * i)][0] = 'x';
+          }
         }
         if (fichas[posicionBalon - (1 * i)][3] == '|i') {
           break;
@@ -543,6 +593,12 @@ class _GamePageState extends State<GamePage> {
             (fichas[posicionBalon - (12 * i)][0] == 'x' ||
                 fichas[posicionBalon - (12 * i)][0] == 'arco')) {
           fichas[posicionBalon - (12 * i)][0] = 'mb';
+          if (esPase(posicionBalon - (12 * i)) && numPases > 3) {
+            fichas[posicionBalon - (12 * i)][0] = 'x';
+          }
+          if (jugadaProhibida(posicionBalon - (12 * i))) {
+            fichas[posicionBalon - (12 * i)][0] = 'x';
+          }
         }
         if (fichas[posicionBalon - (12 * i)][3] == '|i') {
           break;
@@ -672,6 +728,143 @@ class _GamePageState extends State<GamePage> {
     }
   }
 
+  //Valida si la siguiente jugada es un pase de un jugador a otro del mismo equipo, si es asi
+  //No cambiara el turno y se podra hacer hasta 4 pases
+  bool esPase(int indice) {
+    //Arriba-Izquierda
+    if (enTableroBalon(indice - 12) &&
+        fichas[indice - 12][0] == jugadorUltimoPase) {
+      return true;
+    }
+    //Arriba
+    if (enTableroBalon(indice - 11) &&
+        fichas[indice - 11][0] == jugadorUltimoPase) {
+      return true;
+    }
+    //Arriba-Derecha
+    if (enTableroBalon(indice - 10) &&
+        fichas[indice - 10][0] == jugadorUltimoPase) {
+      return true;
+    }
+    //Derecha
+    if (enTableroBalon(indice + 1) &&
+        fichas[indice + 1][0] == jugadorUltimoPase) {
+      return true;
+    }
+    //Abajo-Derecha
+    if (enTableroBalon(indice + 12) &&
+        fichas[indice + 12][0] == jugadorUltimoPase) {
+      return true;
+    }
+    //Abajo
+    if (enTableroBalon(indice + 11) &&
+        fichas[indice + 11][0] == jugadorUltimoPase) {
+      return true;
+    }
+    //Abajo-Izquierda
+    if (enTableroBalon(indice + 10) &&
+        fichas[indice + 10][0] == jugadorUltimoPase) {
+      return true;
+    }
+    //Izquierda
+    if (enTableroBalon(indice - 1) &&
+        fichas[indice - 1][0] == jugadorUltimoPase) {
+      return true;
+    }
+    return false;
+  }
+
+  //Metodo que valida si una de las posibles jugadas es una jugada prohibida, si es asi, no permite
+  //que el jugador la elija
+  bool jugadaProhibida(int indice) {
+    //No dejar el balon en el area del mismo jugador que esta pateando
+    //Arriba-Izquierda
+    if (enTableroBalon(indice - 12) &&
+        indice - 12 == indiceFichaActualSeleccionada) {
+      return true;
+    }
+    //Arriba
+    if (enTableroBalon(indice - 11) &&
+        indice - 11 == indiceFichaActualSeleccionada) {
+      return true;
+    }
+    //Arriba-Derecha
+    if (enTableroBalon(indice - 10) &&
+        indice - 10 == indiceFichaActualSeleccionada) {
+      return true;
+    }
+    //Derecha
+    if (enTableroBalon(indice + 1) &&
+        indice + 1 == indiceFichaActualSeleccionada) {
+      return true;
+    }
+    //Abajo-Derecha
+    if (enTableroBalon(indice + 12) &&
+        indice + 12 == indiceFichaActualSeleccionada) {
+      return true;
+    }
+    //Abajo
+    if (enTableroBalon(indice + 11) &&
+        indice + 11 == indiceFichaActualSeleccionada) {
+      return true;
+    }
+    //Abajo-Izquierda
+    if (enTableroBalon(indice + 10) &&
+        indice + 10 == indiceFichaActualSeleccionada) {
+      return true;
+    }
+    //Izquierda
+    if (enTableroBalon(indice - 1) &&
+        indice - 1 == indiceFichaActualSeleccionada) {
+      return true;
+    }
+    return false;
+  }
+
+  //Metodo que se encarga de obtener el indice de la ficha en caso de un pase
+  int obtenerIndice() {
+    if (enTablero(posicionBalon - 12) &&
+        fichas[posicionBalon - 12][0] == turnoJugador) {
+      return posicionBalon - 12;
+    }
+    //Arriba
+    if (enTablero(posicionBalon - 11) &&
+        fichas[posicionBalon - 1][0] == turnoJugador) {
+      return posicionBalon - 11;
+    }
+    //Arriba-Derecha
+    if (enTablero(posicionBalon - 10) &&
+        fichas[posicionBalon - 10][0] == turnoJugador) {
+      return posicionBalon - 10;
+    }
+    //Derecha
+    if (enTablero(posicionBalon + 1) &&
+        fichas[posicionBalon + 1][0] == turnoJugador) {
+      return posicionBalon + 1;
+    }
+    //Abajo-Derecha
+    if (enTablero(posicionBalon + 12) &&
+        fichas[posicionBalon + 12][0] == turnoJugador) {
+      return posicionBalon + 12;
+    }
+    //Abajo
+    if (enTablero(posicionBalon + 11) &&
+        fichas[posicionBalon + 11][0] == turnoJugador) {
+      return posicionBalon + 11;
+    }
+    //Abajo-Izquierda
+    if (enTablero(posicionBalon + 10) &&
+        fichas[posicionBalon + 10][0] == turnoJugador) {
+      return posicionBalon + 10;
+    }
+    //Izquierda
+    if (enTablero(posicionBalon - 1) &&
+        fichas[posicionBalon - 1][0] == turnoJugador) {
+      return posicionBalon - 1;
+    }
+    return -1;
+  }
+
   @override
   Widget build(BuildContext context) {
     final nombrelogin = (ModalRoute.of(context)?.settings.arguments ??
@@ -712,34 +905,38 @@ class _GamePageState extends State<GamePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(//const TimerPage()
+                    Container(
+                        //El timer va aca, para que se muestre al otro lado del marcador
+                        // height: 32,
+                        // width: 80,
+                        // color: Colors.white,
+                        // child: const TimerPage(),
                         ),
                     Container(
-                      //width: 200,
-                      //color: Colors.blueAccent,
                       alignment: Alignment.center,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            if (nombrelogin['NombreLogin'] == "true")
-                              Container(
-                                  height: 32,
-                                  width: 80,
-                                  color: Colors.white,
-                                  child: const TimerPage()),
+                            // if (nombrelogin['NombreLogin'] == "true")
+                            //   Container(
+                            //       height: 32,
+                            //       width: 80,
+                            //       color: Colors.white,
+                            //       child: const TimerPage()),
+                            // if (nombrelogin['NombreUser'] == "true")
+                            //   Container(
+                            //     width: 5,
+                            //     color: Colors.transparent,
+                            //     child: const Text(
+                            //       "",
+                            //       textAlign: TextAlign.center,
+                            //       style: TextStyle(
+                            //           fontSize: 20, color: Colors.white),
+                            //     ),
+                            //   ),
                             if (nombrelogin['NombreUser'] == "true")
                               Container(
-                                width: 5,
-                                color: Colors.transparent,
-                                child: const Text(
-                                  "",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
-                                ),
-                              ),
-                            if (nombrelogin['NombreUser'] == "true")
-                              Container(
+                                //Container J1
                                 width: 32,
                                 color: Colors.red,
                                 child: const Text(
@@ -753,6 +950,7 @@ class _GamePageState extends State<GamePage> {
                               ),
                             if (nombrelogin['NombreUser'] == "false")
                               Container(
+                                //Container J1
                                 width: 32,
                                 color: Colors.blue[900],
                                 child: const Text(
@@ -765,6 +963,7 @@ class _GamePageState extends State<GamePage> {
                                 ),
                               ),
                             Container(
+                              //Container contador J1
                               width: 32,
                               color: Colors.black,
                               child: Text(
@@ -777,6 +976,7 @@ class _GamePageState extends State<GamePage> {
                               ),
                             ),
                             Container(
+                              //Container vs
                               width: 24,
                               color: Colors.transparent,
                               child: const Text(
@@ -787,6 +987,7 @@ class _GamePageState extends State<GamePage> {
                               ),
                             ),
                             Container(
+                              //Container contador J2
                               width: 32,
                               color: Colors.black,
                               child: Text(
@@ -800,6 +1001,7 @@ class _GamePageState extends State<GamePage> {
                             ),
                             if (nombrelogin['NombreUser'] == "true")
                               Container(
+                                //Container J2
                                 width: 32,
                                 color: Colors.blue[900],
                                 child: const Text(
@@ -813,6 +1015,7 @@ class _GamePageState extends State<GamePage> {
                               ),
                             if (nombrelogin['NombreUser'] == "false")
                               Container(
+                                //Container J2
                                 width: 32,
                                 color: Colors.red,
                                 child: const Text(
