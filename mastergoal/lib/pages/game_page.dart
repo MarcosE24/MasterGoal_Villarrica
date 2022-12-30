@@ -11,9 +11,11 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage> {
   String jugadorRojo = '';
-  String jugadorBlanco = '';
+  String jugadorAzul = '';
+  String ganadorPartido = '';
   int posicionBalon = 82;
   int cont = 0;
+  int cont2 = 0;
   int marcador1 = 0;
   int marcador2 = 0;
   int indiceFichaActualSeleccionada = -1;
@@ -21,8 +23,11 @@ class _GamePageState extends State<GamePage> {
   String fichaActualSeleccionada = '';
   String jugadorUltimoPase = '';
   String turnoJugador = 'jugador1';
+  String tiempo = "";
   bool estaFichaEstaMarcada = false;
   bool golEnContra = false;
+  bool esGol = false;
+  bool finalizarPartido = false;
 
   //Para pintar los cuadros verdes mas claros
   List<int> cuadrosVerde = [
@@ -278,67 +283,83 @@ class _GamePageState extends State<GamePage> {
 
   //Metodo que reconoce que estamos queriendo hacer cuando tocamos una casilla
   void casillaSeleccionada(int indice) {
-    //Si la casilla seleccionada es una casilla disponible para moverse, movemos la fichas a la
-    //casilla elegida y resteamos su anterior posicion
-    if (fichas[indice][0].toString() == "d") {
-      fichas[indice][0] = fichaActualSeleccionada;
-      fichas[indiceFichaActualSeleccionada][0] = 'x';
-      indiceFichaActualSeleccionada = indice;
-      desmarcarTodo();
-
-      //Verifica si la ficha del jugador se encuentra en el area de la pelota, si es verdad se
-      //habilitan los movimientos posibles
-      if ((fichas[indice][0] == jugadorRojo ||
-              fichas[indice][0] == jugadorBlanco) &&
-          fichas[indice][2] == 'ab') {
-        jugadorUltimoPase = fichas[indice][0];
-        turnoJugador == jugadorRojo
-            ? turnoJugador = jugadorBlanco
-            : turnoJugador = jugadorRojo;
-
-        movimientoPatearBalon();
-      } else {
-        turnoJugador == jugadorRojo
-            ? turnoJugador = jugadorBlanco
-            : turnoJugador = jugadorRojo;
-      }
-    }
-
-    //Si la casilla seleccionada es una casilla disponible para que el balon se mueva, hacemos el
-    //movimiento y actualizamos la posicion del balon
-    else if (fichas[indice][0] == 'mb') {
-      fichas[indice][0] = 'balon';
-      fichas[posicionBalon][0] = 'x';
-      posicionBalon = indice;
-      areaDelBalon();
-      desmarcarTodo();
-      jugadaGol(indice);
-      if (esPase(posicionBalon)) {
-        numPases++;
-        turnoJugador = jugadorUltimoPase;
-        indiceFichaActualSeleccionada = obtenerIndice();
-        movimientoPatearBalon();
-      } else {
-        numPases = 0;
-      }
-    }
-
-    //Si la casilla seleccionada contiene cualquiera de las fichas
-    else if (fichas[indice][0].toString() != "x" &&
-        fichas[indice][1].toString() == 'noseleccionado') {
-      if (fichas[indice][0] == turnoJugador) {
+    if (!finalizarPartido) {
+      esGol = false;
+      //Si la casilla seleccionada es una casilla disponible para moverse, movemos la fichas a la
+      //casilla elegida y resteamos su anterior posicion
+      if (fichas[indice][0].toString() == "d") {
+        fichas[indice][0] = fichaActualSeleccionada;
+        fichas[indiceFichaActualSeleccionada][0] = 'x';
+        indiceFichaActualSeleccionada = indice;
         desmarcarTodo();
-        setState(() {
-          indiceFichaActualSeleccionada = indice;
-          fichaActualSeleccionada = fichas[indice][0].toString();
-          fichas[indice][1] = 'seleccionado';
-        });
-        if (fichas[indice][0].toString() == 'balon') {
+
+        //Verifica si la ficha del jugador se encuentra en el area de la pelota, si es verdad se
+        //habilitan los movimientos posibles
+        if ((fichas[indice][0] == jugadorRojo ||
+                fichas[indice][0] == jugadorAzul) &&
+            fichas[indice][2] == 'ab') {
+          jugadorUltimoPase = fichas[indice][0];
+          turnoJugador == jugadorRojo
+              ? turnoJugador = jugadorRojo
+              : turnoJugador = jugadorAzul;
+
+          movimientoPatearBalon();
         } else {
-          jugadorMarcado(indice);
+          turnoJugador == jugadorRojo
+              ? turnoJugador = jugadorAzul
+              : turnoJugador = jugadorRojo;
         }
-      } else {
+      }
+
+      //Si la casilla seleccionada es una casilla disponible para que el balon se mueva, hacemos el
+      //movimiento y actualizamos la posicion del balon
+      else if (fichas[indice][0] == 'mb') {
+        fichas[indice][0] = 'balon';
+        fichas[posicionBalon][0] = 'x';
+        posicionBalon = indice;
+        areaDelBalon();
         desmarcarTodo();
+        jugadaGol(indice);
+        if (esPase(posicionBalon)) {
+          numPases++;
+          turnoJugador = jugadorUltimoPase;
+          indiceFichaActualSeleccionada = obtenerIndice();
+          movimientoPatearBalon();
+        } else {
+          numPases = 0;
+          if (turnoJugador == jugadorRojo) {
+            turnoJugador = jugadorAzul;
+          } else {
+            turnoJugador = jugadorRojo;
+          }
+        }
+      }
+
+      //Si la casilla seleccionada contiene cualquiera de las fichas
+      else if (fichas[indice][0].toString() != "x" &&
+          fichas[indice][1].toString() == 'noseleccionado') {
+        if (fichas[indice][0] == turnoJugador) {
+          desmarcarTodo();
+          setState(() {
+            indiceFichaActualSeleccionada = indice;
+            fichaActualSeleccionada = fichas[indice][0].toString();
+            fichas[indice][1] = 'seleccionado';
+          });
+          if (fichas[indice][0].toString() == 'balon') {
+          } else {
+            jugadorMarcado(indice);
+          }
+        } else {
+          desmarcarTodo();
+        }
+      }
+
+      if (marcador1 == 2) {
+        finalizarPartido = true;
+        ganadorPartido = jugadorRojo;
+      } else if (marcador2 == 2) {
+        finalizarPartido = true;
+        ganadorPartido = jugadorAzul;
       }
     }
   }
@@ -683,9 +704,9 @@ class _GamePageState extends State<GamePage> {
         (156 < posicionBalon && posicionBalon < 162)) {
       //Verifica si el gol fue en contra
       if ((2 < posicionBalon && posicionBalon < 8) &&
-          jugadorUltimoPase == jugadorBlanco) {
+          jugadorUltimoPase == jugadorAzul) {
         golEnContra = true;
-        turnoJugador = jugadorBlanco;
+        turnoJugador = jugadorAzul;
       } else if ((156 < posicionBalon && posicionBalon < 162) &&
           jugadorUltimoPase == jugadorRojo) {
         golEnContra = true;
@@ -700,25 +721,27 @@ class _GamePageState extends State<GamePage> {
         } else {
           marcador1++;
         }
-      } else if (jugadorUltimoPase == jugadorBlanco) {
+        esGol = true;
+      } else if (jugadorUltimoPase == jugadorAzul) {
         if (golEnContra) {
           marcador1++;
           golEnContra = false;
         } else {
           marcador2++;
         }
+        esGol = true;
       }
 
       //Resetea las posiciones de las fichas cuando se convierta un gol
       for (int i = 0; i < 164; i++) {
         if (fichas[i][0] == jugadorRojo ||
-            fichas[i][0] == jugadorBlanco ||
+            fichas[i][0] == jugadorAzul ||
             fichas[i][0] == 'balon') {
           fichas[i][0] = 'x';
         }
       }
-      fichas[27][0] = jugadorBlanco;
-      fichas[49][0] = jugadorBlanco;
+      fichas[27][0] = jugadorAzul;
+      fichas[49][0] = jugadorAzul;
       fichas[82][0] = 'balon';
       fichas[115][0] = jugadorRojo;
       fichas[137][0] = jugadorRojo;
@@ -865,223 +888,255 @@ class _GamePageState extends State<GamePage> {
     return -1;
   }
 
+  //Metodo que devuleve un widget, dependiendo si hubo una jugada de gol o no
+  Widget bannerGol() {
+    if (esGol) {
+      return const Text(
+        "GOOOOOOOOLLLLLL",
+        style: TextStyle(
+            color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+      );
+    } else {
+      return Text(
+        turnoJugador == "jugador1"
+            ? "Es turno del Equipo Rojo"
+            : "Es turno del Equipo Azul",
+        style: const TextStyle(
+            color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+      );
+    }
+  }
+
+  //Metodo de devuelve un widget, dependiendo si ya termino el partido y que equipo es el ganador
+  Widget bannerResumen() {
+    if (ganadorPartido != "") {
+      return Container(
+        child: Text(
+          ganadorPartido == "jugador1"
+              ? "La partida se ha acabado\nEl ganador es el Equipo Rojo"
+              : "La partida se ha acabado\nEl ganador es el Equipo Azul",
+          style: const TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final nombrelogin = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map;
-    if (nombrelogin['NombreUser'] == "true" && cont == 0) {
+    if (nombrelogin['equipSelected'] == "true" && cont == 0) {
       jugadorRojo = "jugador1";
-      jugadorBlanco = "jugador2";
+      jugadorAzul = "jugador2";
       turnoJugador = jugadorRojo;
-      fichas[27][0] = jugadorBlanco;
-      fichas[49][0] = jugadorBlanco;
+      fichas[27][0] = jugadorAzul;
+      fichas[49][0] = jugadorAzul;
       fichas[115][0] = jugadorRojo;
       fichas[137][0] = jugadorRojo;
       cont = 1 + 1;
-    } else if (nombrelogin['NombreUser'] == "false" && cont == 0) {
-      print(cont);
-
+    } else if (nombrelogin['equipSelected'] == "false" && cont == 0) {
       jugadorRojo = "jugador2";
-      jugadorBlanco = "jugador1";
-      turnoJugador = jugadorBlanco;
-      fichas[27][0] = jugadorBlanco;
-      fichas[49][0] = jugadorBlanco;
+      jugadorAzul = "jugador1";
+      turnoJugador = jugadorAzul;
+      fichas[27][0] = jugadorAzul;
+      fichas[49][0] = jugadorAzul;
       fichas[115][0] = jugadorRojo;
       fichas[137][0] = jugadorRojo;
       cont = 1 + 1;
     }
+    if (nombrelogin["Tiempo"] != "" && cont2 == 0) {
+      tiempo = nombrelogin["Tiempo"];
+    }
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("MasterGoal"),
-          centerTitle: true,
-          backgroundColor: Colors.amber,
-        ),
         backgroundColor: Colors.teal.shade900,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                        //El timer va aca, para que se muestre al otro lado del marcador
-                        // height: 32,
-                        // width: 80,
-                        // color: Colors.white,
-                        // child: const TimerPage(),
-                        ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            // if (nombrelogin['NombreLogin'] == "true")
-                            //   Container(
-                            //       height: 32,
-                            //       width: 80,
-                            //       color: Colors.white,
-                            //       child: const TimerPage()),
-                            // if (nombrelogin['NombreUser'] == "true")
-                            //   Container(
-                            //     width: 5,
-                            //     color: Colors.transparent,
-                            //     child: const Text(
-                            //       "",
-                            //       textAlign: TextAlign.center,
-                            //       style: TextStyle(
-                            //           fontSize: 20, color: Colors.white),
-                            //     ),
-                            //   ),
-                            if (nombrelogin['NombreUser'] == "true")
-                              Container(
-                                //Container J1
-                                width: 32,
-                                color: Colors.red,
-                                child: const Text(
-                                  "J1",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 27,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            if (nombrelogin['NombreUser'] == "false")
-                              Container(
-                                //Container J1
-                                width: 32,
-                                color: Colors.blue[900],
-                                child: const Text(
-                                  "J1",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 27,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            Container(
-                              //Container contador J1
-                              width: 32,
-                              color: Colors.black,
-                              child: Text(
-                                "$marcador1",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                            Container(
-                              //Container vs
-                              width: 24,
-                              color: Colors.transparent,
-                              child: const Text(
-                                "vs",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                            Container(
-                              //Container contador J2
-                              width: 32,
-                              color: Colors.black,
-                              child: Text(
-                                "$marcador2",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            if (nombrelogin['NombreUser'] == "true")
-                              Container(
-                                //Container J2
-                                width: 32,
-                                color: Colors.blue[900],
-                                child: const Text(
-                                  "J2",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 27,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            if (nombrelogin['NombreUser'] == "false")
-                              Container(
-                                //Container J2
-                                width: 32,
-                                color: Colors.red,
-                                child: const Text(
-                                  "J2",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 27,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              )
-                          ]),
-                    )
-                  ],
-                )),
-            Expanded(
-              flex: 7,
-              child: GridView.builder(
-                  itemCount: 165,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 11),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (BuildContext context, int indice) {
-                    if (indice > 10 && indice < 154) {
-                      return Container(
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      //El timer va aca, para que se muestre al otro lado del marcador
+                      Container(
+                          child: nombrelogin['timerChecked'] == "true"
+                              ? Container(
+                                  height: 32,
+                                  width: 80,
+                                  color: Colors.white,
+                                  child: const TimerPage())
+                              : const Text("")),
+                      Container(
                         alignment: Alignment.center,
-                        color: cuadrosVerde.contains(indice)
-                            ? Colors.green
-                            : Colors.green.shade900,
-                        child: MiFicha(
-                          ficha: fichas[indice][0].toString(),
-                          estaSeleccionada: fichas[indice][1].toString(),
-                          onTap: () {
-                            casillaSeleccionada(indice);
-                          },
-                        ),
-                      );
-                    } else if ((indice > 2 && indice < 8) ||
-                        (indice > 156 && indice < 162)) {
-                      //Inserta las casillas de los arcos
-                      return Container(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (nombrelogin['equipSelected'] == "true")
+                                Container(
+                                  //Container J1
+                                  width: 32,
+                                  color: Colors.red,
+                                  child: const Text(
+                                    "J1",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 27,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              if (nombrelogin['equipSelected'] == "false")
+                                Container(
+                                  //Container J1
+                                  width: 32,
+                                  color: Colors.blue[900],
+                                  child: const Text(
+                                    "J1",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 27,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              Container(
+                                //Container contador J1
+                                width: 32,
+                                color: Colors.black,
+                                child: Text(
+                                  "$marcador1",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              Container(
+                                //Container vs
+                                width: 24,
+                                color: Colors.transparent,
+                                child: const Text(
+                                  "vs",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white),
+                                ),
+                              ),
+                              Container(
+                                //Container contador J2
+                                width: 32,
+                                color: Colors.black,
+                                child: Text(
+                                  "$marcador2",
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              if (nombrelogin['equipSelected'] == "true")
+                                Container(
+                                  //Container J2
+                                  width: 32,
+                                  color: Colors.blue[900],
+                                  child: const Text(
+                                    "J2",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 27,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              if (nombrelogin['equipSelected'] == "false")
+                                Container(
+                                  //Container J2
+                                  width: 32,
+                                  color: Colors.red,
+                                  child: const Text(
+                                    "J2",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 27,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                            ]),
+                      )
+                    ],
+                  )),
+              Expanded(
+                flex: 10,
+                child: GridView.builder(
+                    itemCount: 165,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 11),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int indice) {
+                      if (indice > 10 && indice < 154) {
+                        return Container(
                           alignment: Alignment.center,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/arco.png"),
-                                  fit: BoxFit.cover)),
+                          color: cuadrosVerde.contains(indice)
+                              ? Colors.green
+                              : Colors.green.shade900,
                           child: MiFicha(
-                            ficha: fichas[indice][0],
-                            estaSeleccionada: fichas[indice][1],
+                            ficha: fichas[indice][0].toString(),
+                            estaSeleccionada: fichas[indice][1].toString(),
+                            indice: indice,
                             onTap: () {
                               casillaSeleccionada(indice);
                             },
-                          ));
-                    } else {
-                      //Casillas en Blanco por arriba y abajo del tablero
-                      return Container(
-                        color: Colors.transparent,
-                        child: Text(
-                          "$indice",
-                          textAlign: TextAlign.center,
-                        ),
-                      );
-                    }
-                  }),
-            ),
-          ],
+                          ),
+                        );
+                      } else if ((indice > 2 && indice < 8) ||
+                          (indice > 156 && indice < 162)) {
+                        //Inserta las casillas de los arcos
+                        return Container(
+                            alignment: Alignment.center,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage("assets/arco.png"),
+                                    fit: BoxFit.cover)),
+                            child: MiFicha(
+                              ficha: fichas[indice][0],
+                              estaSeleccionada: fichas[indice][1],
+                              indice: indice,
+                              onTap: () {
+                                casillaSeleccionada(indice);
+                              },
+                            ));
+                      } else {
+                        //Casillas en Blanco por arriba y abajo del tablero
+                        return Container(
+                          color: Colors.transparent,
+                          child: Text(
+                            "$indice",
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                    }),
+              ),
+              Expanded(flex: 1, child: bannerResumen()),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: turnoJugador == "jugador1"
+                      ? Colors.red
+                      : Colors.blue[900],
+                  alignment: Alignment.center,
+                  child: bannerGol(),
+                ),
+              )
+            ],
+          ),
         ));
   }
 }

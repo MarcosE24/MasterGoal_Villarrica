@@ -10,10 +10,13 @@ class MiFicha extends StatelessWidget {
   //Funcion para cuando se toque
   final onTap;
 
+  final int indice;
+
   const MiFicha(
       {required this.ficha,
       //required this.hacerJugada,
       required this.estaSeleccionada,
+      required this.indice,
       this.onTap});
 
   @override
@@ -28,7 +31,7 @@ class MiFicha extends StatelessWidget {
           ));
     }
 
-    //Si ficha es 'arco' solo devuelve un contenedor vacio pero con un gesture
+    //Si ficha es 'arco' solo devuelve un contenedor vacio
     else if (ficha == 'arco') {
       return Container();
     }
@@ -47,6 +50,75 @@ class MiFicha extends StatelessWidget {
     }
 
     //Si ficha = 'x' retornamos un contenedor vacio
-    return Container();
+    return Container(
+      decoration: decoracion(),
+    );
+  }
+
+  BoxDecoration decoracion() {
+    //Solamente lado izquierdo
+    if (indice == 12 ||
+        indice == 13 ||
+        indice == 23 ||
+        indice == 34 ||
+        indice == 122 ||
+        indice == 133 ||
+        indice == 144 ||
+        indice == 145) {
+      return const BoxDecoration(
+          border: Border(left: BorderSide(color: Colors.white, width: 2)));
+    }
+    //Solamente lado derecho
+    if (indice == 19 ||
+        indice == 20 ||
+        indice == 31 ||
+        indice == 42 ||
+        indice == 130 ||
+        indice == 141 ||
+        indice == 151 ||
+        indice == 152) {
+      return const BoxDecoration(
+          border: Border(right: BorderSide(color: Colors.white, width: 2)));
+    }
+    //Solamente esquina inferior izquierda
+    else if (indice == 45 || indice == 24) {
+      return const BoxDecoration(
+          border: Border(
+              left: BorderSide(color: Colors.white, width: 2),
+              bottom: BorderSide(color: Colors.white, width: 2)));
+    }
+    //Solamente esquina inferior derecha
+    else if (indice == 30 || indice == 53) {
+      return const BoxDecoration(
+          border: Border(
+              right: BorderSide(color: Colors.white, width: 2),
+              bottom: BorderSide(color: Colors.white, width: 2)));
+    }
+    //Solamente esquina superior Izquierda
+    else if (indice == 111 || indice == 134) {
+      return const BoxDecoration(
+          border: Border(
+              left: BorderSide(color: Colors.white, width: 2),
+              top: BorderSide(color: Colors.white, width: 2)));
+    }
+    //Solamente esquina superior derecha
+    else if (indice == 119 || indice == 140) {
+      return const BoxDecoration(
+          border: Border(
+              right: BorderSide(color: Colors.white, width: 2),
+              top: BorderSide(color: Colors.white, width: 2)));
+    }
+    //Solmanete lado inferior
+    else if ((24 < indice && indice < 30) || (45 < indice && indice < 53)) {
+      return const BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.white, width: 2)));
+    }
+    //Solamente lado superior
+    else if ((111 < indice && indice < 119) || (134 < indice && indice < 140)) {
+      return const BoxDecoration(
+          border: Border(top: BorderSide(color: Colors.white, width: 2)));
+    } else {
+      return const BoxDecoration();
+    }
   }
 }

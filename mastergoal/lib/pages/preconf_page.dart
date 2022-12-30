@@ -11,130 +11,164 @@ class _PreConfState extends State<PreConf> {
   bool? _checkTimer = false;
   bool? _checkGoal = true;
   bool? _checkRojo = true;
-  bool? _checkBlanca = false;
+  bool? _checkAzul = false;
+  String tiempo = "";
+
+  //Widget que se muestra solo si se selecciona jugar por tiempo
+  Widget establecerTiempo() {
+    if (_checkTimer == true) {
+      return SizedBox(
+        width: 130,
+        child: TextField(
+          onSubmitted: (value) {
+            setState(() {
+              tiempo = value;
+            });
+          },
+          keyboardType: TextInputType.number,
+          style: const TextStyle(fontSize: 17),
+          maxLength: 3,
+          textAlign: TextAlign.center,
+          decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.alarm),
+              //hintText: "Tiempo en minutos",
+              helperText: "Tiempo en Minutos"),
+        ),
+      );
+    }
+    return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //appBar: AppBar(),
-        body: Column(children: [
-      Container(
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(
-          left: 20,
-          right: 20,
-          top: 250,
-        ),
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        height: 200,
-        child: ListView(
-          children: const [
-            Card(
-              color: Color(0xff2aac4a),
-              child: ListTile(
-                title: Text(
-                  "Configuracion",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 35,
-                    //fontFamily: "Gilroy",
-                    //fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-      CheckboxListTile(
-        title: Text("Jugar por Minutos"),
-        controlAffinity: ListTileControlAffinity.platform,
-        value: _checkTimer,
-        //child: Image.asset('assets/jugador1.png'),
-        onChanged: (bool? value) {
-          setState(() {
-            _checkGoal = _checkTimer;
-            _checkTimer = value;
-          });
-        },
-        activeColor: Colors.green,
-        checkColor: Colors.black,
-      ),
-      CheckboxListTile(
-        title: Text("Jugar por Goles"),
-        // secondary: Icon(Icons.beach_access),
-        controlAffinity: ListTileControlAffinity.platform,
-        value: _checkGoal,
-        onChanged: (bool? value) {
-          setState(() {
-            _checkTimer = _checkGoal;
-            _checkGoal = value;
-          });
-        },
-        activeColor: Colors.green,
-        checkColor: Colors.black,
-      ),
-      CheckboxListTile(
-        title: Text("Camiseta Roja"),
-        secondary: Image.asset('assets/jugador1.png'),
-        controlAffinity: ListTileControlAffinity.platform,
-        value: _checkRojo,
-        //child: Image.asset('assets/jugador1.png'),
-        onChanged: (bool? valued) {
-          setState(() {
-            _checkBlanca = _checkRojo;
-            _checkRojo = valued;
-          });
-        },
-        activeColor: Colors.green,
-        checkColor: Colors.black,
-      ),
-      CheckboxListTile(
-        title: Text("Camiseta Azul"),
-        secondary: Image.asset('assets/jugador2.png'),
-        controlAffinity: ListTileControlAffinity.platform,
-        value: _checkBlanca,
-        //child: Image.asset('assets/jugador1.png'),
-        onChanged: (bool? valued) {
-          setState(() {
-            _checkRojo = _checkBlanca;
-            _checkBlanca = valued;
-          });
-        },
-        activeColor: Colors.green,
-        checkColor: Colors.black,
-      ),
-      Container(
-        margin: const EdgeInsets.all(15),
-        child: ElevatedButton(
-          onPressed: () {
-            //var argument = textoController;
-            Navigator.pushNamed(
-              context,
-              '/game',
-              arguments: {
-                'NombreLogin': _checkTimer.toString(),
-                'NombreUser': _checkRojo.toString()
-              },
-              //arguments: {'NombreLogin': _checkTimer.toString()},
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            //elevation: 10.0,
-            minimumSize: const Size(300, 60),
-            primary: const Color(0xff2aac4a),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
+        body: SingleChildScrollView(
+      child: Column(children: [
+        //Container de Configuracion
+        Container(
+          color: const Color(0xff2aac4a),
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(
+            top: 50,
           ),
+          height: 100,
           child: const Text(
-            "Iniciar Partida",
+            "Configuracion",
             style: TextStyle(
-              fontSize: 23.0,
+                color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),
+          ),
+        ),
+        //Container de Eleija un modo de Juego
+        Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(top: 30, bottom: 10),
+          child: const Text(
+            "Elija un modo de Juego",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        //CheckBox Jugar por Tiempo
+        CheckboxListTile(
+          title: const Text("Jugar por Tiempo"),
+          controlAffinity: ListTileControlAffinity.platform,
+          value: _checkTimer,
+          onChanged: (bool? value) {
+            setState(() {
+              _checkGoal = _checkTimer;
+              _checkTimer = value;
+              //establecerTiempo();
+            });
+          },
+          activeColor: Colors.green,
+          checkColor: Colors.black,
+        ),
+        //Se ejecuta validando si se ha seleccionado el checkbox anterior
+        establecerTiempo(),
+        //CheckBox Jugar por Goles
+        CheckboxListTile(
+          title: const Text("Jugar por Goles"),
+          // secondary: Icon(Icons.beach_access),
+          controlAffinity: ListTileControlAffinity.platform,
+          value: _checkGoal,
+          onChanged: (bool? value) {
+            setState(() {
+              _checkTimer = _checkGoal;
+              _checkGoal = value;
+            });
+          },
+          activeColor: Colors.green,
+          checkColor: Colors.black,
+        ),
+        //Container de Elija un Equipo
+        Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(top: 30, bottom: 10),
+          child: const Text(
+            "Elija un Equipo",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        //CheckBox Equipo Rojo
+        CheckboxListTile(
+          title: const Text("Equipo Rojo"),
+          secondary: Image.asset('assets/jugador1.png'),
+          controlAffinity: ListTileControlAffinity.platform,
+          value: _checkRojo,
+          onChanged: (bool? valued) {
+            setState(() {
+              _checkAzul = _checkRojo;
+              _checkRojo = valued;
+            });
+          },
+          activeColor: Colors.green,
+          checkColor: Colors.black,
+        ),
+        //CheckBox Equipo Azul
+        CheckboxListTile(
+          title: const Text("Equipo Azul"),
+          secondary: Image.asset('assets/jugador2.png'),
+          controlAffinity: ListTileControlAffinity.platform,
+          value: _checkAzul,
+          onChanged: (bool? valued) {
+            setState(() {
+              _checkRojo = _checkAzul;
+              _checkAzul = valued;
+            });
+          },
+          activeColor: Colors.green,
+          checkColor: Colors.black,
+        ),
+        //Container del boton Iniciar Partida
+        Container(
+          margin: const EdgeInsets.only(top: 40),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/game',
+                arguments: {
+                  'timerChecked': _checkTimer.toString(),
+                  'equipSelected': _checkRojo.toString(),
+                  "Tiempo": tiempo
+                },
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(300, 60),
+              backgroundColor: const Color(0xff2aac4a),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+            ),
+            child: const Text(
+              "Iniciar Partida",
+              style: TextStyle(
+                fontSize: 23.0,
+              ),
             ),
           ),
         ),
-      ),
-    ]));
+      ]),
+    ));
   }
 }
