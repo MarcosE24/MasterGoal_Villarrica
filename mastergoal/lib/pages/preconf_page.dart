@@ -15,7 +15,7 @@ class _PreConfState extends State<PreConf> {
   String tiempo = "";
 
   //Widget que se muestra solo si se selecciona jugar por tiempo
-  Widget establecerTiempo() {
+  /* Widget establecerTiempo() {
     if (_checkTimer == true) {
       return SizedBox(
         width: 130,
@@ -37,7 +37,7 @@ class _PreConfState extends State<PreConf> {
       );
     }
     return Container();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,6 @@ class _PreConfState extends State<PreConf> {
           checkColor: Colors.black,
         ),
         //Se ejecuta validando si se ha seleccionado el checkbox anterior
-        establecerTiempo(),
         //CheckBox Jugar por Goles
         CheckboxListTile(
           title: const Text("Jugar por Goles"),

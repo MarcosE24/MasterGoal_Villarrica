@@ -23,9 +23,23 @@ class _TimerPageState extends State<TimerPage> {
       (Timer timer) {
         if (_start == 0) {
           setState(() {
-            Navigator.pushNamed(
-              context,
-              '/home',
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('TE QUEDASTE SIN TIEMPO!'),
+                content: const Text(''),
+                actions: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/',
+                      );
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+              ),
             );
             timer.cancel();
           });
