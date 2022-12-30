@@ -361,6 +361,34 @@ class _GamePageState extends State<GamePage> {
         finalizarPartido = true;
         ganadorPartido = jugadorAzul;
       }
+
+      if (finalizarPartido) {
+        setState(() {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(
+                ganadorPartido == "jugador1"
+                    ? "La partida se ha acabado\nEl ganador es el Equipo Rojo"
+                    : "La partida se ha acabado\nEl ganador es el Equipo Azul",
+                style: const TextStyle(color: Colors.black, fontSize: 20),
+              ),
+              content: const Text(''),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/',
+                    );
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            ),
+          );
+        });
+      }
     }
   }
 
