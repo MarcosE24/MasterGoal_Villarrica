@@ -88,7 +88,7 @@ class _TutorialPageState extends State<TutorialPage> {
                       //var argument = textoController;
                       Navigator.pushReplacementNamed(
                         context,
-                        '/home',
+                        '/',
                       );
                       //print(textoController.text);
                       //Navigator.pushNamed(context, "/home");

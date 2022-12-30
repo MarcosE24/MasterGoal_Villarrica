@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
 
 //funcion para crear las rutas de las pagina [mauro]
   final _routes = {
-    '/': (context) => const LoginPage(),
-    '/home': (context) => const HomePage(),
+    '/': (context) => const HomePage(),
+    //'/home': (context) => const HomePage(),
     '/game': (context) => const GamePage(),
     '/tutorial': (context) => const TutorialPage(),
     '/creditos': (context) => const CreditosPage(),

@@ -37,24 +37,24 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 140,
-                      width: 140,
-                      child: Image.asset('assets/logo2.png'),
+                      height: 200,
+                      width: 200,
+                      child: Image.asset('assets/logo.png'),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(right: 5),
+                      margin: const EdgeInsets.only(right: 3),
                       alignment: Alignment.bottomRight,
                       //child: Text(nombrelogin['NombreLogin'],
-                      child: Text(
-                        'Bienvenido, ${nombrelogin['NombreLogin']}',
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white),
+                      child: const Text(
+                        'Bienvenidos  ',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     )
                   ],
                 ),
               ),
             ),
+            const Padding(padding: EdgeInsets.all(35)),
             Container(
               margin: const EdgeInsets.all(15),
               child: ElevatedButton(
